@@ -1,10 +1,10 @@
 # วิธีการทำงาน อ่านด้วยนะครับ :>
 ---
 
-1 . Clone Git
+1 . Clone Git หรือใช้ Github Desktop ก็ได้
 
 ```bash
-git clone 
+git clone  https://github.com/MeowmeowGangster/FlashCardFrontend.git
 ```
 
 2 . สร้าง Branch ใหม่
