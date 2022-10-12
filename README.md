@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# วิธีการทำงาน อ่านด้วยนะครับ :>
+---
 
-## Getting Started
-
-First, run the development server:
+1 . Clone Git
 
 ```bash
-npm run dev
-# or
-yarn dev
+git clone 
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2 . สร้าง Branch ใหม่
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+```bash
+git checkout -b ชื่อ/feature
+เช่น git checkout -b porpyyy_/feature-card
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+3 . Install Package
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```bash
+npm install หรือ yarn
+```
 
-## Learn More
+4 . Run Project
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev หรือ yarn dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+5 . เข้าไปที่ <http://localhost:3000>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+6 . ทำงานใน Branch ที่สร้างไว้
 
-## Deploy on Vercel
+7 . เมื่อเสร็จแล้ว ให้ Commit และ Push ไปที่ Branch ที่สร้างไว้
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+git add .   
+git commit -m "เขียนอะไรก็ได้ แต่ต้องเขียนเป็นภาษาอังกฤษ ให้เข้าใจง่าย ว่าทำอะไรไปบ้าง"   
+git push origin ชื่อ/feature
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+เช่น git push origin porpyyy_/feature-card
+```
