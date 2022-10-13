@@ -1,0 +1,85 @@
+name: Flash Card App Deployment to Google Cloud Run 
+on:
+  push:
+    branches:
+      - FLASHCARD-57-login-page
+env:
+  REGION: 'asia-southeast1'
+  SERVICE: 'flashcard-api'
+  GOOGLE_CLOUD_PROJECT: '${{ secrets.GCP_PROJECT_ID }}'
+  NODE_ENV: "production"
+  GOOGLE_CLOUD_KEYFILE: '${{ secrets.GCP_SA_KEY }}'
+  NEXT_PUBLIC_FIREBASE_APIKEY: '${{ secrets.FIREBASE_APIKEY }}'
+  NEXT_PUBLIC_FIREBASE_AUTHDOMAIN: '${{ secrets.FIREBASE_AUTHDOMAIN }}'
+  NEXT_PUBLIC_FIREBASE_PROJECTID: '${{ secrets.FIREBASE_PROJECTID }}'
+  NEXT_PUBLIC_FIREBASE_STORAGEBUCKET: '${{ secrets.FIREBASE_STORAGEBUCKET }}'
+  NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID: '${{ secrets.FIREBASE_MESSAGINGSENDERID }}'
+  NEXT_PUBLIC_FIREBASE_APPID: '${{ secrets.FIREBASE_APPID }}'
+  NEXT_PUBLIC_FIREBASE_MEASUREMENTID: '${{ secrets.FIREBASE_MEASUREMENTID }}'
+  NEXT_PUBLIC_LINE_CHANNEL_ID: '${{ secrets.LINE_CHANNEL_ID }}'
+  NEXT_PUBLIC_LINE_CHANNEL_SECRET: '${{ secrets.LINE_CHANNEL_SECRET }}'
+  NEXT_PUBLIC_LINE_REDIRECT_URI: '${{ secrets.LINE_REDIRECT_URI }}'
+  NEXT_PUBLIC_LINE_CODE_VERIFIER: '${{ secrets.LINE_CODE_VERIFIER }}'
+  NEXT_PUBLIC_BACKEND_URL: '${{ secrets.BACKEND_URL }}'
+
+
+jobs:
+
+  setup-build-publish-deploy:
+    name: Setup, Build, Publish, and Deploy
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - id: 'auth'
+        uses: 'google-github-actions/auth@v0'
+        with:
+          credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
+      
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v0
+     
+      - name: Configure Docker to use the gcloud command-line tool as a credential helper
+        run: |-
+          # Set up docker to authenticate
+          # via gcloud command-line tool.
+          gcloud auth configure-docker
+      - name: Build and Push Docker Image
+        run: |-
+          # Build the container on Cloud Build
+          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/flash-card-app
+
+          
+      - name: Deploy to Cloud Run
+        id: deploy  
+        uses: google-github-actions/deploy-cloudrun@v0
+        with:
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flash-card-app
+          env_vars: |
+                REGION: 'asia-southeast1'
+                SERVICE: 'flashcard-api'
+                GOOGLE_CLOUD_PROJECT: '${{ env.GCP_PROJECT_ID }}'
+                NODE_ENV: "production"
+                GOOGLE_CLOUD_KEYFILE: '${{ env.GCP_SA_KEY }}'
+                NEXT_PUBLIC_FIREBASE_APIKEY: '${{ env.FIREBASE_APIKEY }}'
+                NEXT_PUBLIC_FIREBASE_AUTHDOMAIN: '${{ env.FIREBASE_AUTHDOMAIN }}'
+                NEXT_PUBLIC_FIREBASE_PROJECTID: '${{ env.FIREBASE_PROJECTID }}'
+                NEXT_PUBLIC_FIREBASE_STORAGEBUCKET: '${{ env.FIREBASE_STORAGEBUCKET }}'
+                NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID: '${{ env.FIREBASE_MESSAGINGSENDERID }}'
+                NEXT_PUBLIC_FIREBASE_APPID: '${{ env.FIREBASE_APPID }}'
+                NEXT_PUBLIC_FIREBASE_MEASUREMENTID: '${{ env.FIREBASE_MEASUREMENTID }}'
+                NEXT_PUBLIC_LINE_CHANNEL_ID: '${{ env.LINE_CHANNEL_ID }}'
+                NEXT_PUBLIC_LINE_CHANNEL_SECRET: '${{ env.LINE_CHANNEL_SECRET }}'
+                NEXT_PUBLIC_LINE_REDIRECT_URI: '${{ env.LINE_REDIRECT_URI }}'
+                NEXT_PUBLIC_LINE_CODE_VERIFIER: '${{ env.LINE_CODE_VERIFIER }}'
+                NEXT_PUBLIC_BACKEND_URL: '${{ env.BACKEND_URL }}'
+       
+
+      - name: Show Output
+        run: echo ${{ steps.deploy.outputs.url }}
+           
+                      
