@@ -5,7 +5,7 @@ on:
       - FLASHCARD-57-login-page
 env:
   REGION: 'asia-southeast1'
-  SERVICE: 'flashcard-api'
+  SERVICE: 'flashcard-app'
   GOOGLE_CLOUD_PROJECT: '${{ secrets.GCP_PROJECT_ID }}'
   NODE_ENV: "production"
   GOOGLE_CLOUD_KEYFILE: '${{ secrets.GCP_SA_KEY }}'
@@ -62,7 +62,7 @@ jobs:
           
           env_vars: |
                 REGION: 'asia-southeast1'
-                SERVICE: 'flashcard-api'
+                SERVICE: 'flashcard-app'
                 GOOGLE_CLOUD_PROJECT: '${{ env.GCP_PROJECT_ID }}'
                 NODE_ENV: "production"
                 GOOGLE_CLOUD_KEYFILE: '${{ env.GCP_SA_KEY }}'
