@@ -26,13 +26,16 @@ const Callback: NextPage = () => {
 			);
 
 			if (!accessToken) {
+				router.push("/auth/login");
 				return;
 			}
 
 			const line_id_token = getWithExpiry("line-id_token");
+			console.log("line_id_token", line_id_token);
+			console.log("accessToken", accessToken);
 
-			console.log(accessToken);
 			router.push("/");
+
 		};
 		getAcessToken();
 	}, [action, code, router, state]);
