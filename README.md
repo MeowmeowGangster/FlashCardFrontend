@@ -31,9 +31,19 @@ npm run start:dev หรือ yarn start:dev
 
 6 . เข้าไปที่ <http://localhost3000>
 
-7 . ทำงานใน Branch ที่สร้างไว้
+7 . เนื่องจาก Line Login ต้องใช้ https จึงต้องใช้ ngrok ในการทำ https ให้กับ localhost
+เพื่อให้สร้าง Tunnel
 
-8 . เมื่อเสร็จแล้ว ให้ Commit และ Push ไปที่ Branch ที่สร้างไว้
+```bash
+    ngrok http 3000
+```
+
+8 . ให้ไปที่ <https://developers.line.biz/console/> แล้วเข้าไปที่ Channel ของเรา
+
+
+8 . ทำงานใน Branch ที่สร้างไว้
+
+9 . เมื่อเสร็จแล้ว ให้ Commit และ Push ไปที่ Branch ที่สร้างไว้
 
 ```bash
 git add .   
