@@ -3,7 +3,7 @@ import {
 	LineAccessTokenBody,
 	lineAccessTokenResponse,
 } from "@interfaces/line.interface";
-import { auth } from "@utils/Firebase";
+import { auth } from "@utils/firebase";
 import { getWithExpiry, setWithExpiry } from "@utils/localstorage";
 import axios from "axios";
 import { signInWithCustomToken } from "firebase/auth";
@@ -50,15 +50,18 @@ const genAccessToken = async (code: string, action: string) => {
 				"Content-Type": "application/x-www-form-urlencoded",
 			},
 		});
-		const client_id = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID;
+
+		console.log(response.data);
+		const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL as string;
+		const client_id = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID as string;
 		const res = await axios.get(
-			`/auth/login/line?idtoken=${response.data.id_token}&channelid=${client_id}`,
+			`${backendUrl}/auth/login?idtoken=${response.data.access_token}&channelid=${client_id}`,
 		);
 		const ClaimsToken = res.data.token;
 
 		const result = await signInWithCustomToken(auth, ClaimsToken);
 		const tokenResult = await result.user.getIdTokenResult(true);
-		setWithExpiry("line-id_token", response.data.id_token, 3600);
+		setWithExpiry("line-id_token", tokenResult.token, 3600);
 		return tokenResult.token;
 	} catch (error) {
 		console.log(error);
