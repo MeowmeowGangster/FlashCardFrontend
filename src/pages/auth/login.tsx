@@ -1,7 +1,7 @@
 import type { NextPage } from "next";
 import { Stack, Button, Grid, Container } from "@mui/material";
 import Image from "next/image";
-import { generateAuthRequest } from "@utils/auth/Line";
+import { generateAuthRequest } from "@utils/auth/line";
 import { useRouter } from "next/router";
 
 const Login: NextPage = () => {
@@ -38,8 +38,8 @@ const Login: NextPage = () => {
 							variant="contained"
 							color="success"
 							style={{
-								backgroundColor: "#00C300",
-								color: "white",
+								backgroundColor: "#FFFFFF",
+								color: "black",
 								fontWeight: "bold",
 								fontSize: "1.2rem",
 								borderRadius: "2rem",
@@ -49,9 +49,17 @@ const Login: NextPage = () => {
 								boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
 							}}
 						>
-							<Image src="/line.webp" alt="line" width={30} height={30} />
+							<div>
+								<Image src="/line.webp" alt="line" width={30} height={30} />
 
-							<span style={{ marginLeft: "1rem" }}>Login with Line</span>
+								<span
+									style={{
+										margin: "0.5rem",
+									}}
+								>
+									Login with LINE
+								</span>
+							</div>
 						</Button>
 					</Stack>
 				</Grid>
