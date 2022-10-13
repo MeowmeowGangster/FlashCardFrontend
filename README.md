@@ -1,4 +1,5 @@
 # วิธีการทำงาน อ่านด้วยนะครับ :>
+[![Flash Card App Deployment to Google Cloud Run](https://github.com/MeowmeowGangster/FlashCardFrontend/actions/workflows/deploy.yaml/badge.svg?branch=FLASHCARD-57-login-page)](https://github.com/MeowmeowGangster/FlashCardFrontend/actions/workflows/deploy.yaml)
 
 1 . Clone Git หรือใช้ Github Desktop ก็ได้
 
