@@ -83,8 +83,6 @@ jobs:
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}
 
-      - name: Mapping Domain
-        run: |-
-          gcloud beta run domain-mappings create --service ${{ env.SERVICE }} --domain app.flashback.standupcode.tech  --quiet
+
            
                       
