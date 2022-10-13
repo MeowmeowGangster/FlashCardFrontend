@@ -11,6 +11,6 @@ COPY . .
 
 RUN  yarn build
 
-EXPOSE 8080 443 3000
+EXPOSE 8080 443 80
 
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "start", "--port", "8080" ]

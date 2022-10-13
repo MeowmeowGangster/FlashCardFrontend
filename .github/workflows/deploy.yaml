@@ -59,6 +59,7 @@ jobs:
           service: ${{ env.SERVICE }}
           region: ${{ env.REGION }}
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flash-card-app
+          
           env_vars: |
                 REGION: 'asia-southeast1'
                 SERVICE: 'flashcard-api'
