@@ -85,6 +85,6 @@ jobs:
 
       - name: Mapping Domain
         run: |-
-          gcloud beta run domain-mappings create --service ${{ env.SERVICE }} --domain app.flashcard.standupcode.tech  --quiet
+          gcloud beta run domain-mappings create --service ${{ env.SERVICE }} --domain app.flashback.standupcode.tech  --quiet
            
                       
