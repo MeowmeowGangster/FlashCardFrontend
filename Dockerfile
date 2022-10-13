@@ -9,6 +9,8 @@ RUN yarn
 
 COPY . .
 
+ENV NEXT_TELEMETRY_DISABLED=1
+
 RUN  yarn build
 
 EXPOSE 8080 443 80
