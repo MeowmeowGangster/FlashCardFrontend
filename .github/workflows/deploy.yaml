@@ -52,9 +52,9 @@ jobs:
           touch .env
           echo REGION=${{ env.REGION }} >> .env
           echo SERVICE=${{ env.SERVICE }} >> .env
-          echo GOOGLE_CLOUD_PROJECT=${{ env.GCP_PROJECT_ID }} >> .env
+          echo GOOGLE_CLOUD_PROJECT=${{ env.GOOGLE_CLOUD_PROJECT }} >> .env
           echo NEXT_PUBLIC_APP_ENV=${{ env.NEXT_PUBLIC_APP_ENV }} >> .env
-          echo GOOGLE_CLOUD_KEYFILE=${{ env.GCP_SA_KEY }} >> .env
+          echo GOOGLE_CLOUD_KEYFILE=${{ env.GOOGLE_CLOUD_KEYFILE }} >> .env
           echo NEXT_PUBLIC_FIREBASE_APIKEY=${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }} >> .env
           echo NEXT_PUBLIC_FIREBASE_AUTHDOMAIN=${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }} >> .env
           echo NEXT_PUBLIC_FIREBASE_PROJECTID=${{ env.NEXT_PUBLIC_FIREBASE_PROJECTID }} >> .env
@@ -85,9 +85,9 @@ jobs:
           env_vars: |
                 REGION=${{ env.REGION }}
                 SERVICE=${{ env.SERVICE }} 
-                GOOGLE_CLOUD_PROJECT=${{ env.GCP_PROJECT_ID }}
+                GOOGLE_CLOUD_PROJECT=${{ env.GOOGLE_CLOUD_PROJECT }}
                 NEXT_PUBLIC_APP_ENV=${{ env.NEXT_PUBLIC_APP_ENV }}
-                GOOGLE_CLOUD_KEYFILE=${{ env.GCP_SA_KEY }}
+                GOOGLE_CLOUD_KEYFILE=${{ env.GOOGLE_CLOUD_KEYFILE }}
                 NEXT_PUBLIC_FIREBASE_APIKEY=${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }}
                 NEXT_PUBLIC_FIREBASE_AUTHDOMAIN=${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }}
                 NEXT_PUBLIC_FIREBASE_PROJECTID=${{ env.NEXT_PUBLIC_FIREBASE_PROJECTID }}
