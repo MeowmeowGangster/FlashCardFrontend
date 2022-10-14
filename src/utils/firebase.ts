@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import env from "@beam-australia/react-env";
 
 const firebaseConfig = {
 	apiKey: "AIzaSyDZXyf-Kv0g-QmpMwZxN1xBgz4kv1Re9Mk",
@@ -15,7 +16,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = () => {
-	if (process.env.NODE_ENV === "production") {
+	if (env("NODE_ENV") === "production") {
 		if (typeof window !== "undefined") {
 			return getAnalytics(app);
 		}
