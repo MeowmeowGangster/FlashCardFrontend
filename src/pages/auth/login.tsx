@@ -32,8 +32,8 @@ const Login: NextPage = () => {
 					</h1>
 					<Stack direction="row" spacing={2}>
 						<Button
-							onClick={() => {
-								router.push(generateAuthRequest("login"));
+							onClick={async () => {
+								router.push(await generateAuthRequest("login"));
 							}}
 							variant="contained"
 							color="success"
@@ -49,17 +49,18 @@ const Login: NextPage = () => {
 								boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
 							}}
 						>
-							<div>
+							
 								<Image src="/line.webp" alt="line" width={30} height={30} />
 
 								<span
 									style={{
-										margin: "0.5rem",
+										marginRight: "1rem",
+										padding:"0.5rem"
 									}}
 								>
 									Login with LINE
 								</span>
-							</div>
+							
 						</Button>
 					</Stack>
 				</Grid>

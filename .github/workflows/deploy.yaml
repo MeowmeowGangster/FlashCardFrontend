@@ -6,8 +6,8 @@ on:
 env:
   REGION: 'asia-southeast1'
   SERVICE: 'flashcard-app'
-  GOOGLE_CLOUD_PROJECT: '${{ secrets.GCP_PROJECT_ID }}'
   NODE_ENV: "production"
+  GOOGLE_CLOUD_PROJECT: '${{ secrets.GCP_PROJECT_ID }}'
   GOOGLE_CLOUD_KEYFILE: '${{ secrets.GCP_SA_KEY }}'
   NEXT_PUBLIC_FIREBASE_APIKEY: '${{ secrets.NEXT_PUBLIC_FIREBASE_APIKEY }}'
   NEXT_PUBLIC_FIREBASE_AUTHDOMAIN: '${{ secrets.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }}'
@@ -46,12 +46,36 @@ jobs:
           # Set up docker to authenticate
           # via gcloud command-line tool.
           gcloud auth configure-docker
-      - name: Build and Push Docker Image
-        run: |-
-          # Build the container on Cloud Build
-          gcloud builds submit --tag gcr.io/${{ secrets.GCP_PROJECT_ID }}/flash-card-app
-
+   
+      - name: Create env file
+        run: |
+          touch .env
+          echo REGION=${{ env.REGION }} >> .env
+          echo SERVICE=${{ env.SERVICE }} >> .env
+          echo GOOGLE_CLOUD_PROJECT=${{ env.GOOGLE_CLOUD_PROJECT }} >> .env
+          echo NEXT_PUBLIC_NODE_ENV=${{ env.NODE_ENV }} >> .env
+          echo GOOGLE_CLOUD_KEYFILE=${{ env.GOOGLE_CLOUD_KEYFILE }} >> .env
+          echo NEXT_PUBLIC_FIREBASE_APIKEY=${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }} >> .env
+          echo NEXT_PUBLIC_FIREBASE_AUTHDOMAIN=${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }} >> .env
+          echo NEXT_PUBLIC_FIREBASE_PROJECTID=${{ env.NEXT_PUBLIC_FIREBASE_PROJECTID }} >> .env
+          echo NEXT_PUBLIC_FIREBASE_STORAGEBUCKET=${{ env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET }} >> .env
+          echo NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID=${{ env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID }} >> .env
+          echo NEXT_PUBLIC_FIREBASE_APPID=${{ env.NEXT_PUBLIC_FIREBASE_APPID }} >> .env
+          echo NEXT_PUBLIC_FIREBASE_MEASUREMENTID=${{ env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID }} >> .env
+          echo NEXT_PUBLIC_LINE_CHANNEL_ID=${{ env.NEXT_PUBLIC_LINE_CHANNEL_ID }} >> .env
+          echo NEXT_PUBLIC_LINE_CHANNEL_SECRET=${{ env.NEXT_PUBLIC_LINE_CHANNEL_SECRET }} >> .env
+          echo NEXT_PUBLIC_LINE_REDIRECT_URI=${{ env.NEXT_PUBLIC_LINE_REDIRECT_URI }} >> .env
+          echo NEXT_PUBLIC_LINE_CODE_VERIFIER=${{ env.NEXT_PUBLIC_LINE_CODE_VERIFIER }} >> .env
+          echo NEXT_PUBLIC_BACKEND_URL=${{ env.NEXT_PUBLIC_BACKEND_URL }} >> .env
+          cat .env
           
+      - name: Build and Push Docker Image
+        run: |
+          docker build -t \
+          gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
+          docker push gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
+        
+      
       - name: Deploy to Cloud Run
         id: deploy  
         uses: google-github-actions/deploy-cloudrun@v0
@@ -61,23 +85,23 @@ jobs:
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flash-card-app
           
           env_vars: |
-                REGION='${{ env.REGION }}'
-                SERVICE='${{ env.SERVICE }}' 
-                GOOGLE_CLOUD_PROJECT='${{ env.GCP_PROJECT_ID }}'
-                NODE_ENV='${{ env.NODE_ENV }}'
-                GOOGLE_CLOUD_KEYFILE='${{ env.GCP_SA_KEY }}'
-                NEXT_PUBLIC_FIREBASE_APIKEY='${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }}'
-                NEXT_PUBLIC_FIREBASE_AUTHDOMAIN='${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }}'
-                NEXT_PUBLIC_FIREBASE_PROJECTID='${{ env.NEXT_PUBLIC_FIREBASE_PROJECTID }}'
-                NEXT_PUBLIC_FIREBASE_STORAGEBUCKET='${{ env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET }}'
-                NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID='${{ env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID }}'
-                NEXT_PUBLIC_FIREBASE_APPID='${{ env.NEXT_PUBLIC_FIREBASE_APPID }}'
-                NEXT_PUBLIC_FIREBASE_MEASUREMENTID='${{ env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID }}'
-                NEXT_PUBLIC_LINE_CHANNEL_ID='${{ env.NEXT_PUBLIC_LINE_CHANNEL_ID }}'
-                NEXT_PUBLIC_LINE_CHANNEL_SECRET='${{ env.NEXT_PUBLIC_LINE_CHANNEL_SECRET }}'
-                NEXT_PUBLIC_LINE_REDIRECT_URI='${{ env.NEXT_PUBLIC_LINE_REDIRECT_URI }}'
-                NEXT_PUBLIC_LINE_CODE_VERIFIER='${{ env.NEXT_PUBLIC_LINE_CODE_VERIFIER }}'
-                NEXT_PUBLIC_BACKEND_URL='${{ env.NEXT_PUBLIC_BACKEND_URL }}'
+                NODE_ENV=${{ env.NODE_ENV }}
+                REGION=${{ env.REGION }}
+                SERVICE=${{ env.SERVICE }} 
+                GOOGLE_CLOUD_PROJECT=${{ env.GOOGLE_CLOUD_PROJECT }}
+                GOOGLE_CLOUD_KEYFILE=${{ env.GOOGLE_CLOUD_KEYFILE }}
+                NEXT_PUBLIC_FIREBASE_APIKEY=${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }}
+                NEXT_PUBLIC_FIREBASE_AUTHDOMAIN=${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }}
+                NEXT_PUBLIC_FIREBASE_PROJECTID=${{ env.NEXT_PUBLIC_FIREBASE_PROJECTID }}
+                NEXT_PUBLIC_FIREBASE_STORAGEBUCKET=${{ env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET }}
+                NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID=${{ env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID }}
+                NEXT_PUBLIC_FIREBASE_APPID=${{ env.NEXT_PUBLIC_FIREBASE_APPID }}
+                NEXT_PUBLIC_FIREBASE_MEASUREMENTID=${{ env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID }}
+                NEXT_PUBLIC_LINE_CHANNEL_ID=${{ env.NEXT_PUBLIC_LINE_CHANNEL_ID }}
+                NEXT_PUBLIC_LINE_CHANNEL_SECRET=${{ env.NEXT_PUBLIC_LINE_CHANNEL_SECRET }}
+                NEXT_PUBLIC_LINE_REDIRECT_URI=${{ env.NEXT_PUBLIC_LINE_REDIRECT_URI }}
+                NEXT_PUBLIC_LINE_CODE_VERIFIER=${{ env.NEXT_PUBLIC_LINE_CODE_VERIFIER }}
+                NEXT_PUBLIC_BACKEND_URL=${{ env.NEXT_PUBLIC_BACKEND_URL }}
        
 
       - name: Show Output
@@ -85,4 +109,4 @@ jobs:
 
 
            
-                      
+            
