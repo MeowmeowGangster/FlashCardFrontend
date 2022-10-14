@@ -1,11 +1,7 @@
-
-
-
-
-
 const moduleExports = {
   reactStrictMode: true,
   poweredByHeader: false,
+
   images: {
     domains: [
       "res.cloudinary.com",

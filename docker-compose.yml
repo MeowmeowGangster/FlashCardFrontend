@@ -6,8 +6,3 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: flash-card-app
-
-    env_file:
-      - .env
-
-    command: node server.js
