@@ -6,7 +6,7 @@ on:
 env:
   REGION: 'asia-southeast1'
   SERVICE: 'flashcard-app'
-  NEXT_PUBLIC_APP_ENV: "production"
+  NODE_ENV: "production"
   GOOGLE_CLOUD_PROJECT: '${{ secrets.GCP_PROJECT_ID }}'
   GOOGLE_CLOUD_KEYFILE: '${{ secrets.GCP_SA_KEY }}'
   NEXT_PUBLIC_FIREBASE_APIKEY: '${{ secrets.NEXT_PUBLIC_FIREBASE_APIKEY }}'
@@ -53,7 +53,7 @@ jobs:
           echo REGION=${{ env.REGION }} >> .env
           echo SERVICE=${{ env.SERVICE }} >> .env
           echo GOOGLE_CLOUD_PROJECT=${{ env.GOOGLE_CLOUD_PROJECT }} >> .env
-          echo NEXT_PUBLIC_APP_ENV=${{ env.NEXT_PUBLIC_APP_ENV }} >> .env
+          echo NODE_ENV=${{ env.NODE_ENV }} >> .env
           echo GOOGLE_CLOUD_KEYFILE=${{ env.GOOGLE_CLOUD_KEYFILE }} >> .env
           echo NEXT_PUBLIC_FIREBASE_APIKEY=${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }} >> .env
           echo NEXT_PUBLIC_FIREBASE_AUTHDOMAIN=${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }} >> .env
@@ -71,7 +71,8 @@ jobs:
           
       - name: Build and Push Docker Image
         run: |
-          docker build -t gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
+          docker build -t \
+          gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
           docker push gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
         
       
@@ -84,10 +85,10 @@ jobs:
           image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flash-card-app
           
           env_vars: |
+                NODE_ENV=${{ env.NODE_ENV }}
                 REGION=${{ env.REGION }}
                 SERVICE=${{ env.SERVICE }} 
                 GOOGLE_CLOUD_PROJECT=${{ env.GOOGLE_CLOUD_PROJECT }}
-                NEXT_PUBLIC_APP_ENV=${{ env.NEXT_PUBLIC_APP_ENV }}
                 GOOGLE_CLOUD_KEYFILE=${{ env.GOOGLE_CLOUD_KEYFILE }}
                 NEXT_PUBLIC_FIREBASE_APIKEY=${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }}
                 NEXT_PUBLIC_FIREBASE_AUTHDOMAIN=${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }}
