@@ -15,7 +15,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const analytics = () => {
-	if (process.env.NEXT_PUBLIC_APP_ENV === "production") {
+	if (process.env.NEXT_PUBLIC_NODE_ENV === "production") {
 		if (typeof window !== "undefined") {
 			return getAnalytics(app);
 		}
