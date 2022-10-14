@@ -75,34 +75,14 @@ jobs:
           gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
           docker push gcr.io/${{ env.GOOGLE_CLOUD_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
         
-      
-      - name: Deploy to Cloud Run
-        id: deploy  
-        uses: google-github-actions/deploy-cloudrun@v0
+      - name: 'Deploy to App Engine'
+        uses: 'google-github-actions/deploy-appengine@v0'
         with:
-          service: ${{ env.SERVICE }}
-          region: ${{ env.REGION }}
-          image: gcr.io/${{ secrets.GCP_PROJECT_ID }}/flash-card-app
-          
-          env_vars: |
-                NODE_ENV=${{ env.NODE_ENV }}
-                REGION=${{ env.REGION }}
-                SERVICE=${{ env.SERVICE }} 
-                GOOGLE_CLOUD_PROJECT=${{ env.GOOGLE_CLOUD_PROJECT }}
-                GOOGLE_CLOUD_KEYFILE=${{ env.GOOGLE_CLOUD_KEYFILE }}
-                NEXT_PUBLIC_FIREBASE_APIKEY=${{ env.NEXT_PUBLIC_FIREBASE_APIKEY }}
-                NEXT_PUBLIC_FIREBASE_AUTHDOMAIN=${{ env.NEXT_PUBLIC_FIREBASE_AUTHDOMAIN }}
-                NEXT_PUBLIC_FIREBASE_PROJECTID=${{ env.NEXT_PUBLIC_FIREBASE_PROJECTID }}
-                NEXT_PUBLIC_FIREBASE_STORAGEBUCKET=${{ env.NEXT_PUBLIC_FIREBASE_STORAGEBUCKET }}
-                NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID=${{ env.NEXT_PUBLIC_FIREBASE_MESSAGINGSENDERID }}
-                NEXT_PUBLIC_FIREBASE_APPID=${{ env.NEXT_PUBLIC_FIREBASE_APPID }}
-                NEXT_PUBLIC_FIREBASE_MEASUREMENTID=${{ env.NEXT_PUBLIC_FIREBASE_MEASUREMENTID }}
-                NEXT_PUBLIC_LINE_CHANNEL_ID=${{ env.NEXT_PUBLIC_LINE_CHANNEL_ID }}
-                NEXT_PUBLIC_LINE_CHANNEL_SECRET=${{ env.NEXT_PUBLIC_LINE_CHANNEL_SECRET }}
-                NEXT_PUBLIC_LINE_REDIRECT_URI=${{ env.NEXT_PUBLIC_LINE_REDIRECT_URI }}
-                NEXT_PUBLIC_LINE_CODE_VERIFIER=${{ env.NEXT_PUBLIC_LINE_CODE_VERIFIER }}
-                NEXT_PUBLIC_BACKEND_URL=${{ env.NEXT_PUBLIC_BACKEND_URL }}
-       
+          project_id: ${{ env.GOOGLE_CLOUD_PROJECT }}
+          deliverables: 'app.yaml'
+          promote: false
+          version: 'v1'
+     
 
       - name: Show Output
         run: echo ${{ steps.deploy.outputs.url }}

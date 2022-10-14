@@ -8,11 +8,13 @@ import { getWithExpiry, setWithExpiry } from "@utils/localstorage";
 import axios from "axios";
 import { signInWithCustomToken } from "firebase/auth";
 import { nanoid } from "nanoid";
+import env from "@beam-australia/react-env";
 
 const generateAuthRequest = (action: string) => {
 	const response_type = "code";
-	const client_id = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID as string;
-	const redirect_uri = process.env.NEXT_PUBLIC_LINE_REDIRECT_URI + "?action=" + action;
+	const client_id = env("NEXT_PUBLIC_LINE_CHANNEL_ID") as string;
+	const redirect_uri =
+		env("NEXT_PUBLIC_LINE_REDIRECT_URI") + "?action=" + action;
 	const state = nanoid();
 	const scope = "profile%20openid%20email";
 
@@ -26,12 +28,10 @@ const genAccessToken = async (code: string, action: string) => {
 		grant_type: "authorization_code",
 		code: code,
 		redirect_uri:
-			(process.env.NEXT_PUBLIC_LINE_REDIRECT_URI as string) +
-			"?action=" +
-			action,
-		client_id: process.env.NEXT_PUBLIC_LINE_CHANNEL_ID as string,
-		client_secret: process.env.NEXT_PUBLIC_LINE_CHANNEL_SECRET as string,
-		code_verifier: process.env.NEXT_PUBLIC_LINE_CODE_VERIFIER as string,
+			(env("NEXT_PUBLIC_LINE_REDIRECT_URI") as string) + "?action=" + action,
+		client_id: env("NEXT_PUBLIC_LINE_CHANNEL_ID") as string,
+		client_secret: env("NEXT_PUBLIC_LINE_CHANNEL_SECRET") as string,
+		code_verifier: env("NEXT_PUBLIC_LINE_CODE_VERIFIER") as string,
 	};
 
 	const param = () => {
@@ -51,8 +51,8 @@ const genAccessToken = async (code: string, action: string) => {
 		});
 
 		console.log(response.data);
-		const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL as string;
-		const client_id = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID as string;
+		const backendUrl = env("NEXT_PUBLIC_BACKEND_URL") as string;
+		const client_id = env("NEXT_PUBLIC_LINE_CHANNEL_ID") as string;
 		const res = await axios.get(
 			`${backendUrl}/auth/login?idtoken=${response.data.access_token}&channelid=${client_id}`,
 		);
@@ -76,7 +76,7 @@ const getProfileInfo = async () => {
 
 	const data: getProfileBody = {
 		id_token: id_token,
-		client_id: process.env.NEXT_PUBLIC_LINE_CHANNEL_ID as string,
+		client_id: env("NEXT_PUBLIC_LINE_CHANNEL_ID") as string,
 	};
 
 	const param = () => {
