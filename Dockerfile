@@ -21,4 +21,4 @@ RUN npm run build
 
 EXPOSE 8080 443 80
 
-CMD [ "yarn", "start", "--port", "8080" ]
+CMD [ "npm", "start", "--port", "8080" ]
