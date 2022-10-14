@@ -11,9 +11,8 @@ import { nanoid } from "nanoid";
 
 const generateAuthRequest = (action: string) => {
 	const response_type = "code";
-	const client_id = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID;
-	const redirect_uri =
-		process.env.NEXT_PUBLIC_LINE_REDIRECT_URI + "?action=" + action;
+	const client_id = process.env.NEXT_PUBLIC_LINE_CHANNEL_ID as string;
+	const redirect_uri = process.env.NEXT_PUBLIC_LINE_REDIRECT_URI + "?action=" + action;
 	const state = nanoid();
 	const scope = "profile%20openid%20email";
 

@@ -57,7 +57,7 @@ const Callback: NextPage = () => {
 				>
 					<h1
 						style={{
-							fontSize: "3rem",
+							fontSize: "1rem",
 							fontWeight: "bold",
 							color: "#111827",
 						}}
