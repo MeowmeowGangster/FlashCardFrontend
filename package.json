@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@beam-australia/react-env": "^3.1.1",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@mui/icons-material": "^5.10.9",
@@ -22,6 +23,7 @@
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-env": "^0.0.0",
     "sharp": "^0.31.1",
     "styled-components": "^5.3.6"
   },
