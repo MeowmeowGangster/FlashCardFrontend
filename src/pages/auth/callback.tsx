@@ -8,10 +8,7 @@ import { genAccessToken } from "@utils/auth/line";
 const Callback: NextPage = () => {
 	const router = useRouter();
 	const { code, state, action } = router.query;
-;
 
-	console.log("state", state);
-	console.log("action", action);	
 
 	useEffect(() => {
 		if (!code || !state) {
@@ -57,7 +54,7 @@ const Callback: NextPage = () => {
 				>
 					<h1
 						style={{
-							fontSize: "3rem",
+							fontSize: "1rem",
 							fontWeight: "bold",
 							color: "#111827",
 						}}
