@@ -32,9 +32,9 @@ const Login: NextPage = () => {
 					</h1>
 					<Stack direction="row" spacing={2}>
 						<Button
-							onClick={async () => {
-								router.push(await generateAuthRequest("login"));
-							}}
+							// onClick={async () => {
+							// 	router.push(await generateAuthRequest("login"));
+							// }} //NOmoreLogin
 							variant="contained"
 							color="success"
 							style={{
