@@ -27,17 +27,17 @@ npm install หรือ yarn
 5 . Run Project
 
 ```bash
-npm run start:dev หรือ yarn start:dev
+npm run dev หรือ yarn dev
 ```
 
-6 . เข้าไปที่ <http://localhost3000>
+6 . เข้าไปที่ <http://localhost:3000>
 
 7 . เนื่องจาก Line Login ต้องใช้ https จึงต้องใช้ ngrok ในการทำ https ให้กับ localhost
-เพื่อให้สร้าง Tunnel 
+เพื่อให้สร้าง Tunnel
 
 - 7.1 ติดตั้ง ngrok จาก ```bash brew install ngrok```
 - 7.2 เข้าเว็บไซต์ <https://dashboard.ngrok.com/get-started/setup> แล้ว Login ด้วย Github
-- 7.3 เลื่อนลงมาจะเจอข้อมูลในการตั้งค่า ให้มา step 2 
+- 7.3 เลื่อนลงมาจะเจอข้อมูลในการตั้งค่า ให้มา step 2
 ```bash
 ngrok config authtoken [YOUR_AUTH_TOKEN] ก็อปโค้ด
 ```
