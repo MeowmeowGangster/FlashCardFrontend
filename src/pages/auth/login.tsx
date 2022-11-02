@@ -8,62 +8,63 @@ const Login: NextPage = () => {
 	const router = useRouter();
 	return (
 		<div>
-			<Container
-				maxWidth="xl"
-				style={{
-					backgroundColor: "#FDE",
-				}}
-			>
-				<Grid
-					container
-					justifyContent="center"
-					alignItems="center"
-					direction="column"
-					style={{ minHeight: "100vh" }}
-				>
-					<h1
-						style={{
-							fontSize: "3rem",
-							fontWeight: "bold",
-							color: "#111827",
-						}}
+			<Container className="warper">
+				<div className="vert first"></div>
+				<div className="vert second"></div>
+				<div className="vert third"></div>
+				<div className="vert fourth">
+					<Grid
+						container
+						justifyContent="center"
+						alignItems="center"
+						direction="column"
+						position={{ xs: "relative", md: "absolute" }}
 					>
-						Login with Line
-					</h1>
-					<Stack direction="row" spacing={2}>
-						<Button
-							onClick={async () => {
-								router.push(await generateAuthRequest("login"));
-							}}
-							variant="contained"
-							color="success"
+						<h1
 							style={{
-								backgroundColor: "#FFFFFF",
-								color: "black",
+								fontSize: "4.5rem",
 								fontWeight: "bold",
-								fontSize: "1.2rem",
-								borderRadius: "2rem",
-								padding: "0.5rem 1rem",
-								margin: "0.5rem 1rem",
-								border: "none",
-								boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+								color: "#ffffff",
+								textAlign: "center",
 							}}
 						>
-							
+							FLASH
+							<br></br>BACK
+						</h1>
+						<Stack direction="column" spacing={5}>
+							<Button
+								onClick={async () => {
+									router.push("/");
+								}}
+								variant="contained"
+								color="success"
+								style={{
+									backgroundColor: "#06C755",
+									color: "white",
+									fontWeight: "regular",
+									fontSize: "1.5rem",
+									width: "20rem",
+									borderRadius: "1.2rem",
+									padding: "0.5rem",
+									margin: "0.5rem 1rem",
+									border: "none",
+									boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
+								}}
+							>
 								<Image src="/line.webp" alt="line" width={30} height={30} />
 
 								<span
 									style={{
 										marginRight: "1rem",
-										padding:"0.5rem"
+										padding: "0.5rem",
 									}}
 								>
-									Login with LINE
+									Login
 								</span>
-							
-						</Button>
-					</Stack>
-				</Grid>
+							</Button>
+						</Stack>
+					</Grid>
+				</div>
 			</Container>
 		</div>
 	);
