@@ -24,3 +24,72 @@ a {
     background: black;
   }
 }
+
+wrapper {
+  height: 100%;
+  background-color: none;
+}
+  
+  .vert {
+  
+    position: absolute;
+    right: 0;
+    left: 0;
+    
+  }
+
+
+  .first {
+    top: 0;
+    height: 60px;
+    background-color: #3C4757;
+    
+  }
+
+  .second {
+    top: 40px;
+    height: 15%;
+    border-radius: 30px 30px 0px 0px;
+    background-color: #FB923C;
+  }
+
+  .third {
+    top: calc(20px + 15%);
+    height: 30%;
+    border-radius: 30px 30px 0px 0px;
+    background-color: #FDE68A;
+  }
+
+  .fourth {
+    top: calc(50px + 25%);
+    border-radius: 30px 30px 0px 0px;
+    bottom: 0px;
+    background-color: #3C4757;
+  }
+
+
+.bg{
+  background-color: #3C4757;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.create-btn{
+  background-color: #FB923C;
+  border-radius: 10px;
+  color: white;
+  padding: 32px;
+  font-size: "100px";
+  width: 100%;
+  height: 10rem;
+  text-align: center;
+  vertical-align: middle;
+  text-decoration: none;
+  box-shadow: #000;
+
+
+}
