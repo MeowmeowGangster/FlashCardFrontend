@@ -3,13 +3,11 @@ import type { NextPage } from "next";
 
 const Home: NextPage = () => {
 	return (
-		<div>
-			<Container
-				maxWidth="xl"
-				style={{
-					backgroundColor: "#FDE",
-				}}
-			>
+		<div style={{
+			backgroundColor: "#FDE",
+			
+		}}>
+			
 				<Grid
 					container
 					justifyContent="center"
@@ -63,7 +61,7 @@ const Home: NextPage = () => {
 						</Button>
 					</Stack>
 				</Grid>
-			</Container>
+			
 		</div>
 	);
 };
