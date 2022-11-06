@@ -34,7 +34,7 @@ const Login: NextPage = () => {
 						<Stack direction="column" spacing={5}>
 							<Button
 								onClick={async () => {
-									router.push("/");
+									router.push(await generateAuthRequest("login"));
 								}}
 								variant="contained"
 								color="success"
