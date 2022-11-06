@@ -4,18 +4,18 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { getWithExpiry } from "@utils/localstorage";
 import { genAccessToken } from "@utils/auth/line";
+import loadingBicycle from "@components/lottie/loadingBicycle.json";
 
+import Lottie from "lottie-react";
 const Callback: NextPage = () => {
 	const router = useRouter();
 	const { code, state, action } = router.query;
-
 
 	useEffect(() => {
 		if (!code || !state) {
 			return;
 		}
 
-	
 		const getAcessToken = async () => {
 			const accessToken = await genAccessToken(
 				code as string,
@@ -32,19 +32,13 @@ const Callback: NextPage = () => {
 			console.log("accessToken", accessToken);
 
 			router.push("/");
-
 		};
 		getAcessToken();
 	}, [action, code, router, state]);
 
 	return (
-		<div>
-			<Container
-				maxWidth="xl"
-				style={{
-					backgroundColor: "#FDE",
-				}}
-			>
+		<div className="bg">
+			<Container>
 				<Grid
 					container
 					justifyContent="center"
@@ -52,11 +46,12 @@ const Callback: NextPage = () => {
 					direction="column"
 					style={{ minHeight: "100vh" }}
 				>
+					<Lottie animationData={loadingBicycle} />
 					<h1
 						style={{
-							fontSize: "1rem",
+							fontSize: "2rem",
 							fontWeight: "bold",
-							color: "#111827",
+							color: "#fff",
 						}}
 					>
 						Loading ...

@@ -1,19 +1,16 @@
-import { Container, Grid, Stack, Typography } from "@mui/material";
+import { Container, Grid, Stack } from "@mui/material";
 import type { NextPage } from "next";
 
 const Home: NextPage = () => {
 	return (
-		<div>
-			<Container className="bg">
+		<div className="bg">
+			<Container>
 				<Stack rowGap={5}>
-					<Typography>
-						<h1>Choose Your Deck</h1>
-					</Typography>
+					<h1>Choose Your Deck</h1>
+
 					<Grid>
 						<div className="create-btn">
-							<Typography>
-								<h1>+</h1>
-							</Typography>
+							<h1>+</h1>
 						</div>
 					</Grid>
 				</Stack>
