@@ -2,7 +2,7 @@ name: Flash Card App Deployment to Google Cloud Run
 on:
   push:
     branches:
-      - FLASHCARD-57-login-page
+      - develop
 env:
   REGION: 'asia-southeast1'
   SERVICE: 'flashcard-app'
