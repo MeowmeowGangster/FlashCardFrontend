@@ -1,13 +1,82 @@
 import PopModal from "@components/modal/modal";
-import { Typography } from "@mui/material";
-import { Button } from "@mui/material";
-import { TextField } from "@mui/material";
+import { Button, TextField, Typography } from "@mui/material";
 import { Container, Grid, Stack } from "@mui/material";
 import type { NextPage } from "next";
 import { useState } from "react";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const Home: NextPage = () => {
 	const [open, setOpen] = useState(false);
+	const [deckname, setDeckName] = useState("");
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setDeckName(event.target.value);
+	};
+
+	const mockDecks = [
+		{
+			name: "Deck 1",
+		},
+		{
+			name: "Deck 2",
+		},
+		{
+			name: "Deck 3",
+		},
+		{
+			name: "Deck 4",
+		},
+		{
+			name: "Deck 5",
+		},
+		{
+			name: "Deck 5",
+		},
+		{
+			name: "Deck 6",
+		},
+		{
+			name: "Deck 7",
+		},
+		{
+			name: "Deck 8",
+		},
+		{
+			name: "Deck 9",
+		},
+		{
+			name: "Deck 10",
+		},
+		{
+			name: "Deck 11",
+		},
+		{
+			name: "Deck 12",
+		},
+		{
+			name: "Deck 13",
+		},
+		{
+			name: "Deck 14",
+		},
+		{
+			name: "Deck 15",
+		},
+		{
+			name: "Deck 16",
+		},
+		{
+			name: "Deck 17",
+		},
+		{
+			name: "Deck 18",
+		},
+		{
+			name: "Deck 19",
+		},
+		{
+			name: "Deck 20",
+		},
+	];
 	return (
 		<div className="bg">
 			<PopModal isOpen={open} setIsOpen={setOpen}>
@@ -17,7 +86,9 @@ const Home: NextPage = () => {
 					</Typography>
 
 					<TextField
+						value={deckname}
 						variant="outlined"
+						onChange={handleChange}
 						placeholder="Deck Name"
 						style={{
 							backgroundColor: "white",
@@ -62,10 +133,44 @@ const Home: NextPage = () => {
 				<Stack rowGap={5}>
 					<h1>Choose Your Deck</h1>
 
-					<Grid>
-						<button className="create-btn" onClick={() => setOpen(true)}>
-							<h1>+</h1>
-						</button>
+					<Grid
+						container
+						rowSpacing={4}
+						style={{
+							display: "flex",
+							flexDirection: "row",
+							alignItems: "center",
+							justifyContent: "center",
+							paddingTop: "10px",
+							height: "100vh",
+							overflow: "auto",
+							paddingBottom: "120px",
+						}}
+					>
+						{mockDecks.length > 0 &&
+							mockDecks.map((deck, idx) => (
+								<Grid item xs={12} key={idx}>
+									<Button
+										style={{
+											backgroundColor: "#ffffff",
+											color: "black",
+											borderRadius: "10px",
+											padding: "10px 20px",
+											fontFamily: "Prompt",
+											width: "100%",
+											height: "10rem",
+										}}
+									>
+										<Typography variant="h3">{deck.name}</Typography>
+									</Button>
+								</Grid>
+							))}
+
+						<Grid item xs={12}>
+							<Button className="create-btn" onClick={() => setOpen(true)}>
+								<AddCircleIcon />
+							</Button>
+						</Grid>
 					</Grid>
 				</Stack>
 			</Container>
