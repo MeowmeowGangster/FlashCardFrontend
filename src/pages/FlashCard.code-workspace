@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../FlashCardBackend"
+		}
+	],
+	"settings": {
+		"yaml.schemas": {
+			"https://json.schemastore.org/github-workflow.json": "file:///Users/arm/Code/FlashCardFrontend/.github/workflows/deploy.yaml"
+		}
+	}
+}
