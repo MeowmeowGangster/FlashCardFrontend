@@ -40,42 +40,8 @@ const Home: NextPage = () => {
 		{
 			name: "Deck 8",
 		},
-		{
-			name: "Deck 9",
-		},
-		{
-			name: "Deck 10",
-		},
-		{
-			name: "Deck 11",
-		},
-		{
-			name: "Deck 12",
-		},
-		{
-			name: "Deck 13",
-		},
-		{
-			name: "Deck 14",
-		},
-		{
-			name: "Deck 15",
-		},
-		{
-			name: "Deck 16",
-		},
-		{
-			name: "Deck 17",
-		},
-		{
-			name: "Deck 18",
-		},
-		{
-			name: "Deck 19",
-		},
-		{
-			name: "Deck 20",
-		},
+	
+		
 	];
 	return (
 		<div className="bg">
@@ -167,7 +133,22 @@ const Home: NextPage = () => {
 							))}
 
 						<Grid item xs={12}>
-							<Button className="create-btn" onClick={() => setOpen(true)}>
+							<Button
+								style={{
+									backgroundColor: "#fb923c",
+									borderRadius: "10px",
+									color: "#ffffff",
+									padding: "32px",
+									fontSize: "100px",
+									width: "100%",
+									height: "10rem",
+									textAlign: "center",
+									verticalAlign: "middle",
+									textDecoration: "none",
+									boxShadow: "#000",
+								}}
+								onClick={() => setOpen(true)}
+							>
 								<AddCircleIcon />
 							</Button>
 						</Grid>
