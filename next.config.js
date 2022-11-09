@@ -1,7 +1,9 @@
 const moduleExports = {
   reactStrictMode: true,
   poweredByHeader: false,
-
+  compiler: {
+    styledComponents: true,
+  },
   images: {
     domains: [
       "res.cloudinary.com",
