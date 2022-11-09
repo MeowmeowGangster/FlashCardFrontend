@@ -19,8 +19,8 @@ const style = {
 	border: "2px solid #000",
 	boxShadow: 20,
 	borderRadius: "20px",
-	height: 300,
-	p: 2.5,
+	
+	p: 4,
 };
 
 export default function PopModal({ children, isOpen, setIsOpen }: Props) {

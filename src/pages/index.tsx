@@ -5,8 +5,6 @@ import { TextField } from "@mui/material";
 import { Container, Grid, Stack } from "@mui/material";
 import type { NextPage } from "next";
 import { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import { IconButton } from "@mui/material";
 
 const Home: NextPage = () => {
 	const [open, setOpen] = useState(false);
@@ -14,26 +12,9 @@ const Home: NextPage = () => {
 		<div className="bg">
 			<PopModal isOpen={open} setIsOpen={setOpen}>
 				<Stack rowGap={4}>
-					<Stack rowGap={1}>
-						<IconButton
-							onClick={() => setOpen(false)}
-							style={{
-								position: "relative",
-								left: "50%",
-							}}
-						>
-							<CloseIcon
-								style={{
-									backgroundColor: "red",
-									borderRadius: "50%",
-									color: "white",
-								}}
-							/>
-						</IconButton>
-						<Typography id="modal-modal-title" variant="h6" component="h2">
-							Your Deck Name
-						</Typography>
-					</Stack>
+					<Typography id="modal-modal-title" variant="h6" component="h2">
+						Your Deck Name
+					</Typography>
 
 					<TextField
 						variant="outlined"
@@ -45,21 +26,22 @@ const Home: NextPage = () => {
 						}}
 					/>
 					<Grid container spacing={12}>
-						<Grid item md={6}>
+						<Grid item xs={6}>
 							<Button
+								onClick={() => setOpen(false)}
 								style={{
 									backgroundColor: "#8A9098",
 									color: "white",
 									borderRadius: "50px",
 									padding: "10px 20px",
 									fontFamily: "Prompt",
-									width: "100%",
+									width: "100px",
 								}}
 							>
 								Cancel
 							</Button>
 						</Grid>
-						<Grid item md={6}>
+						<Grid item xs={6}>
 							<Button
 								style={{
 									backgroundColor: "#FDE68A",
@@ -67,7 +49,7 @@ const Home: NextPage = () => {
 									borderRadius: "50px",
 									padding: "10px 20px",
 									fontFamily: "Prompt",
-									width: "100%",
+									width: "100px",
 								}}
 							>
 								Go
