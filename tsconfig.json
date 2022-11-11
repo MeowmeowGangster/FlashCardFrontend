@@ -21,9 +21,10 @@
 			"@utils/*": ["utils/*"],
 			"@interfaces/*": ["interfaces/*"],
 			"@services/*": ["services/*"],
-			"@styles/*": ["styles/*"]
+			"@styles/*": ["styles/*"],
+			"@store/*": ["store/*"]
 		}
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/components/Guard/RouteGuard.tsx"],
   "exclude": ["node_modules"]
 }

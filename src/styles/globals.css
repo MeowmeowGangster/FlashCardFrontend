@@ -65,11 +65,11 @@ wrapper {
 
 .bg {
 	background-color: #3c4757;
-	height: 100%;
+	height: 100vh;
 	width: 100%;
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
-	z-index: -1;
+	z-index: 1;
 }
 
