@@ -1,7 +1,10 @@
 
+export interface decksState {
+	decks: DeckData[];
+}
 
 export interface DeckDataResponse {
-	ingredientData: DeckData[];
+	deckData: DeckData[];
 	message: string;
 }
 export interface DeckData {
