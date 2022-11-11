@@ -1,14 +1,15 @@
 import { Response } from "@interfaces/base.interface";
-import { auth } from "@utils/firebase";
-import { AxiosResponse, default as axios, default as request } from "axios";
+import { default as axios, default as request } from "axios";
 
 const getSessionToken = async (token: string) => {
+	const backendUrl = (await process.env.NEXT_PUBLIC_BACKEND_URL) as string;
 	try {
 		const responseSession = await axios.get(
-			`/auth/session?idtoken=${token}`,
+			`${backendUrl}/auth/session?idtoken=${token}`,
 		);
+		console.log(responseSession);
 
-		return responseSession.data.token;
+		return responseSession.data;
 	} catch (error) {
 		if (request.isAxiosError(error) && error.response) {
 			console.log((error.response?.data as Response).message);
@@ -27,7 +28,6 @@ const logout = () => {
 
 const AuthService = {
 	getSessionToken,
-
 	logout,
 };
 

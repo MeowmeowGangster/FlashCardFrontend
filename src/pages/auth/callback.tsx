@@ -5,21 +5,20 @@ import { useEffect } from "react";
 import { getWithExpiry, setWithExpiry } from "@utils/localstorage";
 import { genAccessToken } from "@utils/auth/line";
 import loadingBicycle from "@components/lottie/loadingBicycle.json";
-
 import Lottie from "lottie-react";
 import AuthService from "@services/auth.services";
+import { useDispatch } from "react-redux";
+
 const Callback: NextPage = () => {
 	const router = useRouter();
+	const dispatch = useDispatch();
 	const { code, state, action } = router.query;
+
 	const localState = getWithExpiry("line-state");
 
 	useEffect(() => {
-		if (!code || !localState || !state) {
+		if (!code || !localState) {
 			return;
-		}
-
-		if (state !== localState) {
-			throw new Error("Invalid state");
 		}
 
 		const getAcessToken = async () => {
@@ -31,10 +30,13 @@ const Callback: NextPage = () => {
 			if (!accessToken) {
 				return;
 			}
+
 			const sessionToken = await AuthService.getSessionToken(accessToken);
 			const line_id_token = getWithExpiry("line-id_token");
-			console.log("line_id_token", line_id_token);
-			console.log("accessToken", accessToken);
+			console.log("sessionToken", sessionToken);
+
+			// console.log("line_id_token", line_id_token);
+			// console.log("accessToken", accessToken);
 
 			setWithExpiry(
 				"register",
@@ -43,11 +45,20 @@ const Callback: NextPage = () => {
 				},
 				60 * 10,
 			);
+			setWithExpiry("provider", "line", 60 * 10);
+
+			dispatch({
+				type: "auth/LOGIN_SUCCESS",
+				payload: {
+					token: sessionToken,
+					provider: "line",
+				},
+			});
 
 			router.push("/");
-		};
+		};;
 		getAcessToken();
-	}, [action, code, localState, router, state]);
+	}, [action, code, dispatch, localState, router, state]);
 
 	return (
 		<div className="bg">
