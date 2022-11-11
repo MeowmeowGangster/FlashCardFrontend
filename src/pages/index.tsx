@@ -2,47 +2,29 @@ import PopModal from "@components/modal/modal";
 import { Button, TextField, Typography } from "@mui/material";
 import { Container, Grid, Stack } from "@mui/material";
 import type { NextPage } from "next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useSelector } from "react-redux";
+import { decksData } from "@redux/selectors/decks.selector";
+import { getDecks } from "@redux/actions/deck";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const Home: NextPage = () => {
 	const [open, setOpen] = useState(false);
 	const [deckname, setDeckName] = useState("");
+	const router = useRouter();
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		setDeckName(event.target.value);
 	};
+	const dispatch = useDispatch<any>();
+	const decks = useSelector(decksData);
 
-	const mockDecks = [
-		{
-			name: "Deck 1",
-		},
-		{
-			name: "Deck 2",
-		},
-		{
-			name: "Deck 3",
-		},
-		{
-			name: "Deck 4",
-		},
-		{
-			name: "Deck 5",
-		},
-		{
-			name: "Deck 5",
-		},
-		{
-			name: "Deck 6",
-		},
-		{
-			name: "Deck 7",
-		},
-		{
-			name: "Deck 8",
-		},
-	
-		
-	];
+	useEffect(() => {
+		dispatch(getDecks());
+	}, [dispatch]);
+
 	return (
 		<div className="bg">
 			<PopModal isOpen={open} setIsOpen={setOpen}>
@@ -96,39 +78,62 @@ const Home: NextPage = () => {
 				</Stack>
 			</PopModal>
 			<Container>
-				<Stack rowGap={5}>
+				<Stack
+					rowGap={5}
+					style={{
+						padding: "30px",
+						height: "100vh",
+						overflowY: "scroll",
+					}}
+				>
+					<Stack></Stack>
 					<h1>Choose Your Deck</h1>
 
 					<Grid
 						container
-						rowSpacing={4}
+						rowSpacing={2}
 						style={{
 							display: "flex",
 							flexDirection: "row",
 							alignItems: "center",
 							justifyContent: "center",
 							paddingTop: "10px",
-							height: "100vh",
-							overflow: "auto",
-							paddingBottom: "120px",
 						}}
 					>
-						{mockDecks.length > 0 &&
-							mockDecks.map((deck, idx) => (
+						{decks.length > 0 &&
+							decks.map((deck: any, idx: number) => (
 								<Grid item xs={12} key={idx}>
-									<Button
-										style={{
-											backgroundColor: "#ffffff",
-											color: "black",
-											borderRadius: "10px",
-											padding: "10px 20px",
-											fontFamily: "Prompt",
-											width: "100%",
-											height: "10rem",
-										}}
-									>
-										<Typography variant="h3">{deck.name}</Typography>
-									</Button>
+									<Link href={`/deck/${deck._id}`} passHref>
+										<Button
+											style={{
+												backgroundColor: "#ffffff",
+												color: "black",
+												borderRadius: "10px",
+												padding: "20px 20px",
+												fontFamily: "Prompt",
+												width: "100%",
+												height: "200px",
+												display: "flex",
+												justifyContent: "center",
+												alignItems: "center",
+											}}
+										>
+											<Stack rowGap={2}>
+												<Typography
+													style={{
+														borderRadius: "40px",
+														padding: "20px 20px",
+														fontSize: "16px",
+														fontWeight: "bold",
+													}}
+												>
+													{deck.deckName}
+												</Typography>
+
+												<p>ID:&nbsp;{deck._id}</p>
+											</Stack>
+										</Button>
+									</Link>
 								</Grid>
 							))}
 
