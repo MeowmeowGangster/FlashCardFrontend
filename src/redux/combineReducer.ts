@@ -1,6 +1,7 @@
 import { combineReducers } from "redux";
-import { deck } from "./slice";
+import { auth, deck } from "./slice";
 
 export default combineReducers({
+	auth: auth,
 	deck: deck,
 });
