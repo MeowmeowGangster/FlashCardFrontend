@@ -34,8 +34,9 @@ const RouteGuard = ({ children }: Props) => {
 			router.events.off("routeChangeStart", hideContent);
 			router.events.off("routeChangeComplete", authCheck);
 		};
-	}, [token, dispatch, router]);
+	}, [token, dispatch, router, authCheck]);
 
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	function authCheck(url: string) {
 		const publicPaths = ["auth"];
 		const path = url.split("/")[1];
@@ -58,6 +59,6 @@ const RouteGuard = ({ children }: Props) => {
 	}
 	console.log("authorized", authorized);
 	return authorized ? children : <></>;
-};
+};;
 
 export default RouteGuard;
