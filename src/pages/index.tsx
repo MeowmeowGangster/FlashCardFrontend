@@ -16,32 +16,6 @@ const Home: NextPage = () => {
 		{
 			name: "Deck 1",
 		},
-		{
-			name: "Deck 2",
-		},
-		{
-			name: "Deck 3",
-		},
-		{
-			name: "Deck 4",
-		},
-		{
-			name: "Deck 5",
-		},
-		{
-			name: "Deck 5",
-		},
-		{
-			name: "Deck 6",
-		},
-		{
-			name: "Deck 7",
-		},
-		{
-			name: "Deck 8",
-		},
-	
-		
 	];
 	return (
 		<div className="bg">
@@ -108,9 +82,11 @@ const Home: NextPage = () => {
 							alignItems: "center",
 							justifyContent: "center",
 							paddingTop: "10px",
-							height: "100vh",
+							height: "100%",
 							overflow: "auto",
 							paddingBottom: "120px",
+							scrollBehavior: "smooth",
+							overflowY: "scroll",
 						}}
 					>
 						{mockDecks.length > 0 &&
