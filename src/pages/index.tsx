@@ -86,7 +86,7 @@ const Home: NextPage = () => {
 						overflowY: "scroll",
 					}}
 				>
-					<Stack></Stack>
+					
 					<h1>Choose Your Deck</h1>
 
 					<Grid

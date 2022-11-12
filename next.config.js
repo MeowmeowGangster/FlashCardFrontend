@@ -12,6 +12,8 @@ const moduleExports = {
       "firebasestorage.googleapis.com",
       "images.unsplash.com",
       "static.ghost.org",
+      "picsum.photos",
+      "source.unsplash.com"
     ],
   },
 };
