@@ -13,3 +13,11 @@ export const decksData = createSelector(decksSelector, (deck) => {
 export const error = createSelector(decksSelector, (deck) => {
 	return deck.error;
 });
+
+export const isLoading = createSelector(decksSelector, (deck) => {
+	return deck.isLoading;
+});
+
+export const deckById = createSelector(decksSelector, (deck) => {
+	return deck.deckById;
+});
