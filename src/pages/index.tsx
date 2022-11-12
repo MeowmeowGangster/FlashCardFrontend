@@ -1,5 +1,11 @@
 import PopModal from "@components/modal/modal";
-import { Button, TextField, Typography } from "@mui/material";
+import {
+	Button,
+	IconButton,
+	Slide,
+	TextField,
+	Typography,
+} from "@mui/material";
 import { Container, Grid, Stack } from "@mui/material";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
@@ -126,68 +132,71 @@ const Home: NextPage = () => {
 					>
 						{decks.length > 0 &&
 							decks.map((deck: any, idx: number) => (
-								<Grid item xs={12} key={idx}>
-									<Link href={`/deck/${deck.deckID}`} passHref>
-										<Button
-											style={{
-												backgroundColor: "#ffffff",
-												color: "black",
-												borderRadius: "10px",
-												padding: "20px 20px",
-												fontFamily: "Prompt",
-												width: "100%",
-												height: "200px",
-												display: "flex",
-												justifyContent: "center",
-												alignItems: "center",
-											}}
-										>
-											<Stack rowGap={2}>
-												<Typography
+								<Slide direction="down" in={deck} timeout={500} key={idx}>
+									<Grid item xs={12}>
+										<Link href={`/deck/${deck.deckID}`} passHref>
+											<Button
+												style={{
+													backgroundColor: "#ffffff",
+													color: "black",
+													borderRadius: "10px",
+													padding: "20px 20px",
+													fontFamily: "Prompt",
+													width: "100%",
+													height: "200px",
+													display: "flex",
+													justifyContent: "center",
+													alignItems: "center",
+												}}
+											>
+												<Stack rowGap={2}>
+													<Typography
+														style={{
+															borderRadius: "40px",
+															fontSize: "20px",
+															fontWeight: "bold",
+														}}
+													>
+														{deck.deckName}
+													</Typography>
+													{/* 
+												<p
 													style={{
 														borderRadius: "40px",
-														padding: "20px 20px",
-														fontSize: "16px",
+														fontSize: "10px",
 														fontWeight: "bold",
 													}}
 												>
-													{deck.deckName}
-												</Typography>
-
-												<p
-												style={{
-													borderRadius: "40px",
-													padding: "20px 20px",
-													fontSize: "10px",
-													fontWeight: "bold",
-												}}
-												>ID:&nbsp;{deck.deckID}</p>
-											</Stack>
-										</Button>
-									</Link>
-								</Grid>
+													ID:&nbsp;{deck.deckID}
+												</p> */}
+												</Stack>
+											</Button>
+										</Link>
+									</Grid>
+								</Slide>
 							))}
-
-						<Grid item xs={12}>
-							<Button
-								style={{
-									backgroundColor: "#fb923c",
-									borderRadius: "10px",
-									color: "#ffffff",
-									padding: "32px",
-									fontSize: "100px",
-									width: "100%",
-									height: "10rem",
-									textAlign: "center",
-									verticalAlign: "middle",
-									textDecoration: "none",
-									boxShadow: "#000",
-								}}
-								onClick={() => setOpen(true)}
-							>
-								<AddCircleIcon />
-							</Button>
-						</Grid>
+						<Slide direction="down" in={true} timeout={500}>
+							<Grid item xs={12}>
+								<Button
+									style={{
+										backgroundColor: "#fb923c",
+										borderRadius: "10px",
+										color: "#ffffff",
+										padding: "32px",
+										fontSize: "100px",
+										width: "100%",
+										height: "10rem",
+										textAlign: "center",
+										verticalAlign: "middle",
+										textDecoration: "none",
+										boxShadow: "#000",
+									}}
+									onClick={() => setOpen(true)}
+								>
+									<AddCircleIcon />
+								</Button>
+							</Grid>
+						</Slide>
 					</Grid>
 				</Stack>
 			</Container>

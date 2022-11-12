@@ -47,7 +47,7 @@ const updateDeck = async (id: string, deck: UpdateDeck) => {
 		method: "PATCH",
 		headers: headers,
 	});
-	return response.data;
+	return response;
 };
 
 const deckService = { getAllDecks, getDeckById, createDeck, updateDeck };
