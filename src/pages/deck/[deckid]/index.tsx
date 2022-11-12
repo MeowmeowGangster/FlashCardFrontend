@@ -80,8 +80,8 @@ const Deck: NextPage = () => {
 												}}
 											>
 												<Box>
-													<h2>{card.name}</h2>
-													<p>{card.description}</p>
+													<h2>card</h2>
+													<p>description</p>
 												</Box>
 											</Button>
 										</Grid>
