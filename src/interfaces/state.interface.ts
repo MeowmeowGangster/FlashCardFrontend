@@ -4,15 +4,16 @@ export interface IRootState {
 	deck: IDecksState;
 }
 export interface Ideck {
-	deck_id: string;
-	deck_name: string;
-	cards: string[];
+	deckId: string;
+	deckName: string;
+	cards: Icard[];
 }
 
-export interface Icard{
-	card_id: string;
-	card_name: string;
-	
+export interface Icard {
+	cardId: string;
+	cardName: string;
+	cardPic: string;
+	cardMemo: string;
 }
 interface IAuthState {
 	isLoggedIn: boolean;
