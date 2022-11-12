@@ -23,19 +23,19 @@ const getDeckById = async (id: string) => {
 		method: "GET",
 		headers: headers,
 	});
-	return response.data;
+	return response;
 };
 
-const createDeck = async (deck: CreateDeck) => {
+const createDeck = async (deckData: CreateDeck) => {
 	let headers = {
 		Authorization: `Bearer ${getWithExpiry("token")}`,
 	};
 
-	const response = await axios.patch(`/decks/`, deck, {
+	const response = await axios.post(`/decks`, deckData, {
 		method: "POST",
 		headers: headers,
 	});
-	return response.data;
+	return response;
 };
 
 const updateDeck = async (id: string, deck: UpdateDeck) => {

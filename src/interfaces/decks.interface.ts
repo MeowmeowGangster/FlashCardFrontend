@@ -13,8 +13,7 @@ export interface DeckData {
 	deckName: string;
 }
 
-export interface CreateDeck extends DeckData {
-	ownerID: string;
+export interface CreateDeck {
 	deckName: string;
 }
 
