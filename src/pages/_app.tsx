@@ -53,10 +53,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 							content="initial-scale=1, viewport-fit=cover, user-scalable=no"
 						/>
 					</Head>
-					{isLoading && <LinearProgress />}
-					<RouteGuard>
-						<Component {...pageProps} />
-					</RouteGuard>
+					{isLoading ? (
+						<LinearProgress />
+					) : (
+						<RouteGuard>
+							<Component {...pageProps} />
+						</RouteGuard>
+					)}
 				</>,
 			)}
 		</Provider>
