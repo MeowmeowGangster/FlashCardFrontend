@@ -16,6 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { getDeckById } from "@redux/actions/deck";
 import { deckById } from "@redux/selectors/decks.selector";
+import Link from "next/link";
 
 const Deck: NextPage = () => {
 	const router = useRouter();
@@ -41,26 +42,25 @@ const Deck: NextPage = () => {
 				<Stack
 					rowGap={5}
 					style={{
-						padding: "10px",
+						padding: "30px",
 						height: "100vh",
 						overflowY: "scroll",
 						justifyContent: "center",
 						alignContent: "center",
 					}}
 				>
+					<AppBar
+						component="nav"
+						style={{
+							backgroundColor: "#3c4757",
+							padding: "20px",
+						}}
+					>
+						<Typography variant="h6" component="h2">
+							{deck?.deckName}
+						</Typography>
+					</AppBar>
 					<Container>
-						<AppBar
-							component="nav"
-							style={{
-								backgroundColor: "transparent",
-								boxShadow: "none",
-								padding: "30px",
-							}}
-						>
-							<Typography variant="h6" component="h2">
-								{deck?.deckName}
-							</Typography>
-						</AppBar>
 						<Stack>
 							<Container
 								style={{
@@ -121,23 +121,25 @@ const Deck: NextPage = () => {
 											: {})}
 									>
 										<Grid item xs={2} sm={4} md={4}>
-											<Button
-												style={{
-													backgroundColor: "#fb923c",
-													borderRadius: "10px",
-													color: "#ffffff",
-													padding: "32px",
-													fontSize: "100px",
-													width: "120px",
-													height: "180px",
-													textAlign: "center",
-													verticalAlign: "middle",
-													textDecoration: "none",
-													boxShadow: "#000",
-												}}
-											>
-												<AddCircleIcon />
-											</Button>
+											<Link href="/card/create">
+												<Button
+													style={{
+														backgroundColor: "#fb923c",
+														borderRadius: "10px",
+														color: "#ffffff",
+														padding: "32px",
+														fontSize: "100px",
+														width: "120px",
+														height: "180px",
+														textAlign: "center",
+														verticalAlign: "middle",
+														textDecoration: "none",
+														boxShadow: "#000",
+													}}
+												>
+													<AddCircleIcon />
+												</Button>
+											</Link>
 										</Grid>
 									</Grow>
 								</Grid>
