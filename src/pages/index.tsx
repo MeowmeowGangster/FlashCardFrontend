@@ -1,5 +1,6 @@
 import PopModal from "@components/modal/modal";
 import {
+	AppBar,
 	Button,
 	IconButton,
 	Slide,
@@ -117,12 +118,24 @@ const Home: NextPage = () => {
 						overflowY: "scroll",
 					}}
 				>
-					<h1>Choose Your Deck</h1>
-
+					<AppBar
+						component="nav"
+						style={{
+							backgroundColor: "#3c4757",
+							boxShadow: "10px 10px 10px 10px #3c4757",
+							paddingLeft: "20px",
+							paddingRight: "20px",
+						}}
+					>
+						<Typography variant="h6" component="h2">
+							<h1>Choose Your Deck</h1>
+						</Typography>
+					</AppBar>
 					<Grid
 						container
 						rowSpacing={2}
 						style={{
+							marginTop: "80px",
 							display: "flex",
 							flexDirection: "row",
 							alignItems: "center",
@@ -159,16 +172,6 @@ const Home: NextPage = () => {
 													>
 														{deck.deckName}
 													</Typography>
-													{/* 
-												<p
-													style={{
-														borderRadius: "40px",
-														fontSize: "10px",
-														fontWeight: "bold",
-													}}
-												>
-													ID:&nbsp;{deck.deckID}
-												</p> */}
 												</Stack>
 											</Button>
 										</Link>
