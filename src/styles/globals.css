@@ -73,3 +73,13 @@ wrapper {
 	z-index: 1;
 }
 
+
+.bglight {
+	background-color: white;
+	height: 100vh;
+	width: 100%;
+	position: relative;
+	top: 0;
+	left: 0;
+	
+}
