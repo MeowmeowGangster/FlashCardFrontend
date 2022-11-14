@@ -1,7 +1,9 @@
 const moduleExports = {
   reactStrictMode: true,
   poweredByHeader: false,
-
+  compiler: {
+    styledComponents: true,
+  },
   images: {
     domains: [
       "res.cloudinary.com",
@@ -10,6 +12,8 @@ const moduleExports = {
       "firebasestorage.googleapis.com",
       "images.unsplash.com",
       "static.ghost.org",
+      "picsum.photos",
+      "source.unsplash.com"
     ],
   },
 };

@@ -61,6 +61,7 @@ const genAccessToken = async (code: string, action: string) => {
 
 		const result = await signInWithCustomToken(auth, ClaimsToken);
 		const tokenResult = await result.user.getIdTokenResult(true);
+		// console.log(tokenResult);
 		setWithExpiry("line-id_token", tokenResult.token, 3600);
 		return tokenResult.token;
 	} catch (error) {
