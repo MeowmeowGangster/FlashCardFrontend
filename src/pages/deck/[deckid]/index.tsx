@@ -120,29 +120,34 @@ const Deck: NextPage = () => {
 														/>
 													</CardMedia>
 													<Box
+														style={{
+															position: "absolute",
+															bottom: "0",
+															zIndex: 2,
+															color: "black",
+															// padding: "0px",
+															// WebkitTextStroke: "1px white",
+														}}
+													>
+														<h4
 															style={{
-																position: "absolute",
-																bottom: "0",
-																zIndex: 2,
-																color: "black",
-																// padding: "0px",
-																// WebkitTextStroke: "1px white",
+																marginBottom: "-3px",
 															}}
 														>
-															<h4 style={{
-																marginBottom: "-3px",
-															}}>{card?.cardName}</h4>
-															<p>{card?.cardMemo}</p>
-														</Box>
+															{card?.cardName}
+														</h4>
+														<p>{card?.cardMemo}</p>
+													</Box>
 													<CardActionArea
+														onClick={() => {
+															router.push(`/card/${card.cardID}`);
+														}}
 														style={{
 															position: "relative",
 															width: "100%",
 															height: "100%",
 														}}
-													>
-														
-													</CardActionArea>
+													></CardActionArea>
 												</Card>
 											</Grid>
 										</Grow>
