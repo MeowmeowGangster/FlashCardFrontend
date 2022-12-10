@@ -46,3 +46,18 @@ export const createDeck = createAsyncThunk(
 		}
 	},
 );
+
+export const deleteDeck = createAsyncThunk(
+	"decks/deleteDeck",
+	async (deckId: string, thunkAPI) => {
+		const res = await DecksService.deleteDeck(deckId);
+		// console.log(res);
+		switch (res.status) {
+			case 200:
+				return res.data;
+			default:
+				return thunkAPI.rejectWithValue({ error: res.data });
+		}
+	},
+);
+

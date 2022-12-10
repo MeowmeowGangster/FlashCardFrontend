@@ -2,12 +2,15 @@ import PopModal from "@components/modal/modal";
 import {
 	AppBar,
 	Button,
-	IconButton,
 	Slide,
 	TextField,
 	Typography,
+	Container,
+	Grid,
+	Stack,
+	IconButton,
 } from "@mui/material";
-import { Container, Grid, Stack } from "@mui/material";
+import CancelIcon from "@mui/icons-material/Cancel";
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -17,12 +20,26 @@ import { getDecks, createDeck } from "@redux/actions/deck";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { CreateDeck } from "@interfaces/decks.interface";
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardContent from "@mui/material/CardContent";
+import { deleteDeck } from "@redux/actions/deck";
 
 const Home: NextPage = () => {
 	const [open, setOpen] = useState(false);
 	const [deckname, setDeckName] = useState("");
 	const [deckStatus, setDeckStatus] = useState("idle");
+
+	const handleDeleteDeck = async (deckId: string) => {
+		console.log("Deck:", deckId);
+		setDeckStatus("pending");
+		await dispatch(deleteDeck(deckId));
+		setDeckStatus("idle");
+	};
+
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
 		setDeckName(event.target.value);
 	};
 	const dispatch = useDispatch<any>();
@@ -147,34 +164,49 @@ const Home: NextPage = () => {
 							decks.map((deck: any, idx: number) => (
 								<Slide direction="down" in={deck} timeout={500} key={idx}>
 									<Grid item xs={12}>
-										<Link href={`/deck/${deck.deckID}`} passHref>
-											<Button
+										<Card
+											style={{
+												borderRadius: "15px",
+												height: "150px",
+												width: "100%",
+											}}
+										>
+											<CardHeader
 												style={{
-													backgroundColor: "#ffffff",
-													color: "black",
-													borderRadius: "10px",
-													padding: "20px 20px",
-													fontFamily: "Prompt",
-													width: "100%",
-													height: "200px",
-													display: "flex",
-													justifyContent: "center",
-													alignItems: "center",
+													height: "50px",
 												}}
-											>
-												<Stack rowGap={2}>
-													<Typography
+												action={
+													<IconButton
+														aria-label="settings"
+														onClick={() => {
+															handleDeleteDeck(deck.deckID);
+														}}
 														style={{
-															borderRadius: "40px",
-															fontSize: "20px",
-															fontWeight: "bold",
+															height: "70%",
+														}}
+													>
+														<CancelIcon />
+													</IconButton>
+												}
+											/>
+
+											<CardContent>
+												<Link href={`/deck/${deck.deckID}`} passHref>
+													<Typography
+														variant="h5"
+														component="div"
+														style={{
+															fontFamily: "Prompt",
+															fontSize: "25px",
+															color: "#3c4757",
+															textAlign: "center",
 														}}
 													>
 														{deck.deckName}
 													</Typography>
-												</Stack>
-											</Button>
-										</Link>
+												</Link>
+											</CardContent>
+										</Card>
 									</Grid>
 								</Slide>
 							))}
@@ -183,12 +215,12 @@ const Home: NextPage = () => {
 								<Button
 									style={{
 										backgroundColor: "#fb923c",
-										borderRadius: "10px",
+										borderRadius: "15px",
 										color: "#ffffff",
 										padding: "32px",
 										fontSize: "100px",
 										width: "100%",
-										height: "10rem",
+										height: "150px",
 										textAlign: "center",
 										verticalAlign: "middle",
 										textDecoration: "none",

@@ -18,9 +18,7 @@ const Callback: NextPage = () => {
 	const localState = getWithExpiry("line-state");
 
 	useEffect(() => {
-		if (!code || !localState) {
-			return;
-		}
+		
 
 		const getAcessToken = async () => {
 			const accessToken = await genAccessToken(
@@ -37,7 +35,7 @@ const Callback: NextPage = () => {
 			console.log("sessionToken", sessionToken);
 
 			// console.log("line_id_token", line_id_token);
-			// console.log("accessToken", accessToken);
+			console.log("accessToken", accessToken);
 			console.log("decoded", jwt_decode(sessionToken.token));
 			const decoded = jwt_decode<any>(sessionToken.token);
 
