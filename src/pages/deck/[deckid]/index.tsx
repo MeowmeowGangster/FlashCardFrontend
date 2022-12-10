@@ -97,7 +97,17 @@ const Deck: NextPage = () => {
 												: {})}
 										>
 											<Grid item xs={2} sm={4} md={4}>
-												<Card
+											<CardActionArea
+														onClick={() => {
+															router.push(`/card/${card.cardID}`);
+														}}
+														style={{
+															position: "relative",
+															width: "100%",
+															height: "100%",
+														}}
+													>
+														<Card
 													style={{
 														backgroundColor: "white",
 														borderRadius: "10px",
@@ -143,17 +153,9 @@ const Deck: NextPage = () => {
 														</h4>
 														<p>{card?.cardMemo}</p>
 													</Box>
-													<CardActionArea
-														onClick={() => {
-															router.push(`/card/${card.cardID}`);
-														}}
-														style={{
-															position: "relative",
-															width: "100%",
-															height: "100%",
-														}}
-													></CardActionArea>
+													
 												</Card>
+													</CardActionArea>
 											</Grid>
 										</Grow>
 									))}
