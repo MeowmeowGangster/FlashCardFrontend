@@ -1,22 +1,29 @@
+import { filesUpload } from "./file.interface";
 export interface cardsState {
-	decks: CardData[];
+	cards: CardData[];
 }
 
-export interface DeckDataResponse {
-	deckData: CardData[];
+export interface CardDataResponse {
+	cardData: CardData[];
 	message: string;
 }
 export interface CardData {
 	ownerID: string;
+	cardID: string;
+	cardPic: string;
+	cardName: string;
+	cardMemo: string;
 	deckID: string;
-	deckName: string;
 }
 
-export interface CreateDeck {
-	deckName: string;
+export interface createCard {
+	cardName: string;
+	deckID: string;
+	cardMemo: string;
+	file: File | Blob | undefined;
 }
 
-export interface UpdateDeck extends CardData {
-	deckName: string;
+export interface UpdateCard extends CardData {
+	cardName: string;
 	cards: string[];
 }
