@@ -59,14 +59,15 @@ const Deck: NextPage = () => {
 							backgroundColor: "#3c4757",
 							padding: "20px",
 						}}
-					><Stack direction="row" spacing={3} justifyContent="space-between">
-						<Typography variant="h6" component="h2">
-							{deck?.deckName}
-						</Typography>
-						<Typography variant="h6" component="h2">
-							{deck?.cards.length}
-						</Typography>
-					</Stack>
+					>
+						<Stack direction="row" spacing={3} justifyContent="space-between">
+							<Typography variant="h6" component="h2">
+								{deck?.deckName}
+							</Typography>
+							<Typography variant="h6" component="h2">
+								{deck?.cards.length}
+							</Typography>
+						</Stack>
 					</AppBar>
 					<Container>
 						<Stack>
@@ -112,7 +113,6 @@ const Deck: NextPage = () => {
 														padding: "10px",
 													}}
 												>
-
 													{" "}
 													<CardMedia>
 														<Image
@@ -221,6 +221,9 @@ const Deck: NextPage = () => {
 							</Grid>
 							<Grid item xs={6}>
 								<Button
+									onClick={() => {
+										router.push(`/deck/${deckid}/game`);
+									}}
 									style={{
 										backgroundColor: "#FDE68A",
 										color: "black",

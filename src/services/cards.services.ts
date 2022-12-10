@@ -4,7 +4,7 @@ import { getWithExpiry } from "@utils/localstorage";
 
 import { AxiosResponse, default as axios } from "axios";
 
-const getCardByID = async (cardID: string): Promise<AxiosResponse>  => {
+const getCardByID = async (cardID: string): Promise<AxiosResponse> => {
 	let headers = {
 		Authorization: `Bearer ${getWithExpiry("token")}`,
 	};
@@ -38,7 +38,7 @@ const createCard = async (cardData: CreateCard) => {
 	return response;
 };
 
-const updateCard = async (cardData: updateCard): Promise<AxiosResponse>  => {
+const updateCard = async (cardData: updateCard): Promise<AxiosResponse> => {
 	const file = cardData.file;
 	const fromData = new FormData();
 	let headers = {
@@ -50,6 +50,7 @@ const updateCard = async (cardData: updateCard): Promise<AxiosResponse>  => {
 	}
 	console.log(cardData.deckID);
 
+	fromData.append("cardPic", cardData.cardPic);
 	fromData.append("cardName", cardData.cardName);
 	fromData.append("cardMemo", cardData.cardMemo);
 	fromData.append("deckID", cardData.deckID);
@@ -70,10 +71,24 @@ const deleteCard = async (deckID: string) => {
 	return response;
 };
 
+const randomCard = async (deckID: string, limit: number) => {
+	const response = await axios.get<AxiosResponse>(
+		`/cards/random/${deckID}?limit=${limit}`,
+		{
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${getWithExpiry("token")}`,
+			},
+		},
+	);
+	return response;
+};
+
 const CardService = {
 	createCard,
 	getCardByID,
 	updateCard,
 	deleteCard,
+	randomCard,
 };
 export default CardService;

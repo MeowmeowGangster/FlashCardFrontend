@@ -15,11 +15,13 @@ import { CreateCard } from "@interfaces/card.interface";
 import { createCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
+import Image from "next/image";
 
 const CreateCardPage: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<any>();
 	const { deckid } = router.query;
+	const [image, setImage] = useState("");
 
 	const [cardState, setCard] = useState<CreateCard>({
 		cardMemo: "",
@@ -38,6 +40,7 @@ const CreateCardPage: NextPage = () => {
 		const files = cardimageRef.current?.files;
 		if (files) {
 			setImageFile(files[0]);
+			setImage(URL.createObjectURL(files[0]));
 		}
 	};
 
@@ -132,7 +135,7 @@ const CreateCardPage: NextPage = () => {
 										style={{
 											marginTop: "20px",
 											width: "100%",
-											height: "120px",
+											height: "100%",
 											color: "#000000",
 											fontFamily: "Prompt",
 											fontSize: "1rem",
@@ -160,12 +163,12 @@ const CreateCardPage: NextPage = () => {
 															<div
 																style={{
 																	borderRadius: "10px",
-																	minWidth: "40%",
+																	minWidth: "50%",
 																	maxHeight: "25px",
 																	padding: "1%",
 																	paddingLeft: "10px",
 																	backgroundColor: "orange",
-																	width: "40%",
+																	width: "50%",
 																	fontFamily: "Prompt",
 																	fontSize: "80%",
 																	color: "white",
@@ -178,10 +181,9 @@ const CreateCardPage: NextPage = () => {
 																	fontFamily: "Prompt",
 																	fontSize: "50%",
 																	color: "black",
+																	maxWidth: "40px",
 																}}
-															>
-																{imageFile?.name}
-															</div>
+															></div>
 														</Stack>
 													</div>
 
@@ -196,6 +198,14 @@ const CreateCardPage: NextPage = () => {
 														/>
 													</span>
 												</div>
+												{image && (
+													<Image
+														src={image}
+														alt="Picture of the author"
+														width={50}
+														height={50}
+													/>
+												)}
 											</label>
 										</Stack>
 									</Container>
