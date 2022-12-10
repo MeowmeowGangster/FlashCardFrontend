@@ -11,18 +11,18 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useRef, useState } from "react";
 import { deckById } from "@redux/selectors/decks.selector";
-import { createCard } from "@interfaces/card.interface";
-import { CreateCard } from "@redux/actions/card";
+import { CreateCard } from "@interfaces/card.interface";
+import { createCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
-import CardHeader from '@mui/material/CardHeader';
+import CardHeader from "@mui/material/CardHeader";
 
 const CreateCardPage: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<any>();
 	const { deckid } = router.query;
 
-	const [cardState, setCard] = useState<createCard>({
+	const [cardState, setCard] = useState<CreateCard>({
 		cardMemo: "",
 		cardName: "",
 		deckID: deckid as string,
@@ -55,7 +55,7 @@ const CreateCardPage: NextPage = () => {
 	const onSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		setIsUploading(true);
-		await dispatch(CreateCard(cardState));
+		await dispatch(createCard(cardState));
 		router.push(`/deck/${deckid}`);
 		setIsUploading(false);
 	};
@@ -68,14 +68,17 @@ const CreateCardPage: NextPage = () => {
 				<Loading animationData={Success} />
 			) : (
 				<Container>
-					<Stack direction="row" style={{
+					<Stack
+						direction="row"
+						style={{
 							color: "white",
 							fontFamily: "Prompt",
 							justifyContent: "center",
 							marginBottom: "-20px",
-						}}>
+						}}
+					>
 						<h1>CREATE CARD</h1>
-						</Stack>
+					</Stack>
 					<Stack
 						rowGap={5}
 						style={{

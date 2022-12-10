@@ -1,7 +1,4 @@
 import { filesUpload } from "./file.interface";
-export interface cardsState {
-	cards: CardData[];
-}
 
 export interface CardDataResponse {
 	cardData: CardData[];
@@ -16,7 +13,7 @@ export interface CardData {
 	deckID: string;
 }
 
-export interface createCard {
+export interface CreateCard {
 	cardName: string;
 	deckID: string;
 	cardMemo: string;

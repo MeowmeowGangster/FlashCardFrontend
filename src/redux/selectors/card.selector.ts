@@ -1,23 +1,19 @@
 import { IRootState } from "@interfaces/state.interface";
-import { DecksState } from "@redux/slice/deck.slice";
+import { CardsState } from "@redux/slice/card.slice";
 import { createSelector } from "reselect";
 
-export const decksSelector: (state: IRootState) => DecksState = (
+export const cardsSelector: (state: IRootState) => CardsState = (
 	state: IRootState,
-) => state.deck;
+) => state.card;
 
-export const decksData = createSelector(decksSelector, (deck) => {
-	return deck.decks;
+export const error = createSelector(cardsSelector, (card) => {
+	return card.error;
 });
 
-export const error = createSelector(decksSelector, (deck) => {
-	return deck.error;
+export const isLoading = createSelector(cardsSelector, (card) => {
+	return card.isLoading;
 });
 
-export const isLoading = createSelector(decksSelector, (deck) => {
-	return deck.isLoading;
-});
-
-export const deckById = createSelector(decksSelector, (deck) => {
-	return deck.deckById;
+export const cardById = createSelector(cardsSelector, (card) => {
+	return card.cardById;
 });

@@ -9,10 +9,10 @@ import {
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useRef, useState } from "react";
-import { deckById } from "@redux/selectors/decks.selector";
-import { createCard } from "@interfaces/card.interface";
-import { CreateCard } from "@redux/actions/card";
+import React, { useEffect, useRef, useState } from "react";
+import { cardById } from "@redux/selectors/card.selector";
+import { CreateCard } from "@interfaces/card.interface";
+import { getCardByID, UpdateCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
 
@@ -20,9 +20,21 @@ const EditCardPage: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<any>();
 	const { cardid } = router.query;
+	const [cardStatus, setCardStatus] = useState("idle");
+	const [card, setCard] = useState<any>(null);
+
+	useEffect(() => {
+		if (cardStatus === "idle") {
+			dispatch(getCardByID(cardid as string));
+		}
+	}, [cardStatus, cardid, dispatch]);
 
 
-	const deckState = useSelector(deckById);
+	const cardState = useSelector(cardById);
+
+	useEffect(() => {
+		setCard(cardState);
+	}, [cardState]);
 
 	const [isUploading, setIsUploading] = useState(false);
 	const [imageFile, setImageFile] = useState<File>();
@@ -37,23 +49,15 @@ const EditCardPage: NextPage = () => {
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
-		setCard({
-			...cardState,
-			[event.target.name]: event.target.value,
-			deckID: deckid as string,
-			file: imageFile,
-		});
 	};
 
 	const onSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
 		setIsUploading(true);
-		await dispatch(CreateCard(cardState));
-		router.push(`/deck/${deckid}`);
+		// await dispatch(CreateCard(cardState));
+		// router.push(`/deck/${deckid}`);
 		setIsUploading(false);
 	};
-
-
 
 	return (
 		<div className="bg">
@@ -95,8 +99,8 @@ const EditCardPage: NextPage = () => {
 											<TextareaAutosize
 												name="cardName"
 												onChange={(e: any) => handleChange(e)}
-												value={cardState.cardName}
-												placeholder="Card Name"
+												value={card?.cardName}
+												placeholder={card?.cardName}
 												style={{
 													width: "100%",
 													padding: "10px",
@@ -156,8 +160,8 @@ const EditCardPage: NextPage = () => {
 											</Typography>
 											<TextareaAutosize
 												name="cardMemo"
-												value={cardState.cardMemo}
-												placeholder="memo"
+												value={card?.cardMemo}
+												placeholder={card?.cardMemo}
 												style={{
 													width: "100%",
 													padding: "10px",
