@@ -8,6 +8,9 @@ import {
 	AppBar,
 	Grow,
 	Slide,
+	Card,
+	CardActionArea,
+	CardMedia,
 } from "@mui/material";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -17,6 +20,7 @@ import { useEffect, useState } from "react";
 import { getDeckById } from "@redux/actions/deck";
 import { deckById } from "@redux/selectors/decks.selector";
 import Link from "next/link";
+import Image from "next/image";
 
 const Deck: NextPage = () => {
 	const router = useRouter();
@@ -42,7 +46,7 @@ const Deck: NextPage = () => {
 				<Stack
 					rowGap={5}
 					style={{
-						padding: "30px",
+						padding: "10px",
 						height: "100vh",
 						overflowY: "scroll",
 						justifyContent: "center",
@@ -74,7 +78,7 @@ const Deck: NextPage = () => {
 									container
 									spacing={{ xs: 1, md: 3 }}
 									columns={{ xs: 4, sm: 8, md: 12 }}
-									rowGap={2}
+									rowGap={3}
 								>
 									{deck?.cards?.map((card: any, index: number) => (
 										<Grow
@@ -88,26 +92,55 @@ const Deck: NextPage = () => {
 												: {})}
 										>
 											<Grid item xs={2} sm={4} md={4}>
-												<Button
+												<Card
 													style={{
 														backgroundColor: "white",
 														borderRadius: "10px",
 														color: "black",
-														padding: "20px",
 														fontSize: "12px",
-														width: "120px",
+														width: "130px",
 														height: "180px",
 														textAlign: "center",
 														verticalAlign: "middle",
 														textDecoration: "none",
 														boxShadow: "#000",
+														position: "relative",
+														padding: "10px",
 													}}
 												>
-													<Box>
-														<h2>{card?.cardName}</h2>
-														<p>{card?.cardMemo}</p>
-													</Box>
-												</Button>
+													{" "}
+													<CardMedia>
+														<Image
+															alt="card-cover"
+															src={card?.cardPic}
+															width={200}
+															height={200}
+															layout="fill"
+															objectFit="cover"
+														/>
+													</CardMedia>
+													<CardActionArea
+														style={{
+															position: "relative",
+															width: "100%",
+															height: "100%",
+														}}
+													>
+														<Box
+															style={{
+																position: "absolute",
+																bottom: "0",
+																zIndex: 1,
+																color: "black",
+																padding: "10px",
+																WebkitTextStroke: "1px white",
+															}}
+														>
+															<h2>{card?.cardName}</h2>
+															<p>{card?.cardMemo}</p>
+														</Box>
+													</CardActionArea>
+												</Card>
 											</Grid>
 										</Grow>
 									))}
@@ -121,7 +154,7 @@ const Deck: NextPage = () => {
 											: {})}
 									>
 										<Grid item xs={2} sm={4} md={4}>
-											<Link href="/card/create">
+											<Link href={`/deck/${deckid}/create`}>
 												<Button
 													style={{
 														backgroundColor: "#fb923c",
@@ -159,7 +192,7 @@ const Deck: NextPage = () => {
 							<Grid item xs={6}>
 								<Button
 									onClick={() => {
-										router.back();
+										router.push("/");
 									}}
 									style={{
 										backgroundColor: "#8A9098",

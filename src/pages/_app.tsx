@@ -52,6 +52,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
 							name="viewport"
 							content="initial-scale=1, viewport-fit=cover, user-scalable=no"
 						/>
+						<link rel="icon" href="/logoFlashcard.ico" />
 					</Head>
 					{isLoading ? (
 						<LinearProgress />

@@ -49,6 +49,22 @@ const updateDeck = async (id: string, deck: UpdateDeck) => {
 	});
 	return response;
 };
+const deleteDeck = async (id: string) => {
+	let headers = {
+		Authorization: `Bearer ${getWithExpiry("token")}`,
+	};
+	const response = await axios(`/decks/${id}`, {
+		method: "DELETE",
+		headers: headers,
+	});
+	return response;
+};
 
-const deckService = { getAllDecks, getDeckById, createDeck, updateDeck };
+const deckService = {
+	getAllDecks,
+	getDeckById,
+	createDeck,
+	updateDeck,
+	deleteDeck,
+};
 export default deckService;

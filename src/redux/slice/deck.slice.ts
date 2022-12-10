@@ -1,5 +1,5 @@
 import { Ideck } from "@interfaces/state.interface";
-import { getDeckById, getDecks } from "@redux/actions/deck";
+import { getDeckById, getDecks, deleteDeck } from "@redux/actions/deck";
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface DecksState {
@@ -21,7 +21,6 @@ const decks = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-
 		// Get all decks
 
 		builder.addCase(getDecks.pending, (state) => {
@@ -47,6 +46,18 @@ const decks = createSlice({
 			state.deckById = action.payload;
 		});
 		builder.addCase(getDeckById.rejected, (state, action) => {
+			state.isLoading = false;
+			state.error = action.error.message as string;
+		});
+
+		// delete deck
+		builder.addCase(deleteDeck.pending, (state) => {
+			state.isLoading = true;
+		});
+		builder.addCase(deleteDeck.fulfilled, (state) => {
+			state.isLoading = false;
+		});
+		builder.addCase(deleteDeck.rejected, (state, action) => {
 			state.isLoading = false;
 			state.error = action.error.message as string;
 		});

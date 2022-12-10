@@ -13,7 +13,8 @@ const moduleExports = {
       "images.unsplash.com",
       "static.ghost.org",
       "picsum.photos",
-      "source.unsplash.com"
+      "source.unsplash.com",
+      "storage.googleapis.com"
     ],
   },
 };
