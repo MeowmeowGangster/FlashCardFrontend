@@ -15,6 +15,7 @@ import { createCard } from "@interfaces/card.interface";
 import { CreateCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
+import CardHeader from '@mui/material/CardHeader';
 
 const CreateCardPage: NextPage = () => {
 	const router = useRouter();
@@ -62,16 +63,24 @@ const CreateCardPage: NextPage = () => {
 	console.log(deckState);
 	console.log(cardState);
 	return (
-		<div className="bglight">
+		<div className="bg">
 			{isUploading ? (
 				<Loading animationData={Success} />
 			) : (
 				<Container>
+					<Stack direction="row" style={{
+							color: "white",
+							fontFamily: "Prompt",
+							justifyContent: "center",
+							marginBottom: "-20px",
+						}}>
+						<h1>CREATE CARD</h1>
+						</Stack>
 					<Stack
 						rowGap={5}
 						style={{
 							padding: "10px",
-							height: "100vh",
+							// height: "100vh",
 							overflowY: "scroll",
 							justifyContent: "center",
 							alignContent: "center",
@@ -200,7 +209,7 @@ const CreateCardPage: NextPage = () => {
 											}}
 											style={{
 												backgroundColor: "transparent",
-												color: "#000",
+												color: "white",
 												borderRadius: "50px",
 												padding: "10px 20px",
 												fontFamily: "Prompt",

@@ -59,10 +59,14 @@ const Deck: NextPage = () => {
 							backgroundColor: "#3c4757",
 							padding: "20px",
 						}}
-					>
+					><Stack direction="row" spacing={3} justifyContent="space-between">
 						<Typography variant="h6" component="h2">
 							{deck?.deckName}
 						</Typography>
+						<Typography variant="h6" component="h2">
+							{deck?.cards.length}
+						</Typography>
+					</Stack>
 					</AppBar>
 					<Container>
 						<Stack>
@@ -108,6 +112,7 @@ const Deck: NextPage = () => {
 														padding: "10px",
 													}}
 												>
+
 													{" "}
 													<CardMedia>
 														<Image
@@ -165,7 +170,7 @@ const Deck: NextPage = () => {
 														color: "#ffffff",
 														padding: "32px",
 														fontSize: "100px",
-														width: "120px",
+														width: "130px",
 														height: "180px",
 														textAlign: "center",
 														verticalAlign: "middle",
