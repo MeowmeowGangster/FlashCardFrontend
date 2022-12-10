@@ -23,7 +23,11 @@ export interface createCard {
 	file: File | Blob | undefined;
 }
 
-export interface UpdateCard extends CardData {
+export interface updateCard {
 	cardName: string;
-	cards: string[];
+	cardID: string;
+	cardPic: string;
+	deckID: string;
+	cardMemo: string;
+	file: File | Blob | undefined ;
 }

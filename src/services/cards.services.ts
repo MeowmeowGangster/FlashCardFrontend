@@ -3,21 +3,19 @@ import { filesUpload } from "@interfaces/file.interface";
 import { getWithExpiry } from "@utils/localstorage";
 
 import { AxiosResponse, default as axios } from "axios";
-import { ca } from "date-fns/locale";
 
-// const getAllCards = async (): Promise<AxiosResponse> => {
-// 	let headers = {
-// 		Authorization: `Bearer ${getWithExpiry("token")}`,
-// 	};
 
-// 	const response = await axios("/cards", {
-// 		method: "GET",
-// 		headers: headers,
-// 	});
-// 	//https://api.flashback.standupcode.tech/api/v1/card
-// 	return response;
-// };
 
+const getCardByID = async (cardID: string) => {
+	const response = await axios.get(`/cards/${cardID}`, {
+		method: "GET",
+		headers: {
+			Authorization: `Bearer ${getWithExpiry("token")}`,
+
+		},
+	});
+	return response;
+}
 const createCard = async (cardData: createCard) => {
 	const file = cardData.file;
 	const fromData = new FormData();
@@ -41,7 +39,10 @@ const createCard = async (cardData: createCard) => {
 	return response;
 };
 
+
+
 const CardService = {
 	createCard,
+	getCardByID,
 };
 export default CardService;

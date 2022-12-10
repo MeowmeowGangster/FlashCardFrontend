@@ -16,3 +16,17 @@ export const CreateCard = createAsyncThunk(
 		}
 	},
 );
+
+export const GetCardByID = createAsyncThunk(
+	"card/getcardbyid",
+	async (cardID: string, thunkAPI) => {
+		const res = await CardService.getCardByID(cardID);
+		switch (res.status) {
+			case 200:
+				return res.data;
+			default:
+				return thunkAPI.rejectWithValue({ error: res.data });
+		}
+	},
+);
+
