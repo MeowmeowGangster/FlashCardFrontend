@@ -1,7 +1,7 @@
 export interface IRootState {
 	auth: IAuthState;
-	user: IUserState;
 	deck: IDecksState;
+	card: ICardsState;
 }
 export interface Ideck {
 	deckId: string;
@@ -12,6 +12,7 @@ export interface Ideck {
 export interface Icard {
 	cardId: string;
 	cardName: string;
+	deckId: string;
 	cardPic: string;
 	cardMemo: string;
 }
@@ -26,6 +27,9 @@ interface IDecksState {
 	error: string | null;
 	deckById: Ideck | null;
 }
-export interface IUserState {
-	loading: "idle" | "pending" | "succeeded" | "failed";
+
+interface ICardsState {
+	isLoading: boolean;
+	error: string | null;
+	cardById: Icard | null;
 }

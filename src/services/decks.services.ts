@@ -14,7 +14,7 @@ const getAllDecks = async (): Promise<AxiosResponse> => {
 	return response;
 };
 
-const getDeckById = async (id: string) => {
+const getDeckById = async (id: string): Promise<AxiosResponse>  => {
 	let headers = {
 		Authorization: `Bearer ${getWithExpiry("token")}`,
 	};
@@ -26,7 +26,7 @@ const getDeckById = async (id: string) => {
 	return response;
 };
 
-const createDeck = async (deckData: CreateDeck) => {
+const createDeck = async (deckData: CreateDeck): Promise<AxiosResponse>  => {
 	let headers = {
 		Authorization: `Bearer ${getWithExpiry("token")}`,
 	};
@@ -38,7 +38,7 @@ const createDeck = async (deckData: CreateDeck) => {
 	return response;
 };
 
-const updateDeck = async (id: string, deck: UpdateDeck) => {
+const updateDeck = async (id: string, deck: UpdateDeck): Promise<AxiosResponse>  => {
 	let headers = {
 		Authorization: `Bearer ${getWithExpiry("token")}`,
 	};
@@ -49,6 +49,22 @@ const updateDeck = async (id: string, deck: UpdateDeck) => {
 	});
 	return response;
 };
+const deleteDeck = async (id: string): Promise<AxiosResponse>  => {
+	let headers = {
+		Authorization: `Bearer ${getWithExpiry("token")}`,
+	};
+	const response = await axios(`/decks/${id}`, {
+		method: "DELETE",
+		headers: headers,
+	});
+	return response;
+};
 
-const deckService = { getAllDecks, getDeckById, createDeck, updateDeck };
+const deckService = {
+	getAllDecks,
+	getDeckById,
+	createDeck,
+	updateDeck,
+	deleteDeck,
+};
 export default deckService;
