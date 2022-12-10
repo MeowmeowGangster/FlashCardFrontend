@@ -1,7 +1,4 @@
 import { filesUpload } from "./file.interface";
-export interface cardsState {
-	cards: CardData[];
-}
 
 export interface CardDataResponse {
 	cardData: CardData[];
@@ -16,14 +13,18 @@ export interface CardData {
 	deckID: string;
 }
 
-export interface createCard {
+export interface CreateCard {
 	cardName: string;
 	deckID: string;
 	cardMemo: string;
 	file: File | Blob | undefined;
 }
 
-export interface UpdateCard extends CardData {
+export interface updateCard {
 	cardName: string;
-	cards: string[];
+	cardID: string;
+	cardPic: string;
+	deckID: string;
+	cardMemo: string;
+	file: File | Blob | undefined ;
 }

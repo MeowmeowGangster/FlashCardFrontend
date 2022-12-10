@@ -1,10 +1,10 @@
-import { createCard } from "@interfaces/card.interface";
+import { CreateCard, updateCard } from "@interfaces/card.interface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import CardService from "@services/cards.services";
 
-export const CreateCard = createAsyncThunk(
+export const createCard = createAsyncThunk(
 	"card/createcard",
-	async (card: createCard, thunkAPI) => {
+	async (card: CreateCard, thunkAPI) => {
 		console.log(card);
 		const res = await CardService.createCard(card);
 		console.log(res);
@@ -16,3 +16,46 @@ export const CreateCard = createAsyncThunk(
 		}
 	},
 );
+
+export const getCardByID = createAsyncThunk(
+	"card/getcardbyid",
+	async (cardID: string, thunkAPI) => {
+		const res = await CardService.getCardByID(cardID);
+		switch (res.status) {
+			case 200:
+				
+				return res.data;
+			default:
+				return thunkAPI.rejectWithValue({ error: res.data });
+		}
+	},
+);
+
+
+export const UpdateCard = createAsyncThunk(
+	"card/updatecard",
+	async (card: updateCard, thunkAPI) => {
+		const res = await CardService.updateCard(card);
+		switch (res.status) {
+			case 200:
+				return res.data;
+			default:
+				return thunkAPI.rejectWithValue({ error: res.data });
+		}
+	}
+);
+
+
+export const deleteCard = createAsyncThunk(
+	"card/deletecard",
+	async (cardID: string, thunkAPI) => {
+		const res = await CardService.deleteCard(cardID);
+		switch (res.status) {
+			case 200:
+				return res.data;
+			default:
+				return thunkAPI.rejectWithValue({ error: res.data });
+		}
+	}
+);
+
