@@ -115,10 +115,25 @@ const Deck: NextPage = () => {
 															src={card?.cardPic}
 															width={200}
 															height={200}
-															layout="fill"
+															layout="responsive"
 															objectFit="cover"
 														/>
 													</CardMedia>
+													<Box
+															style={{
+																position: "absolute",
+																bottom: "0",
+																zIndex: 2,
+																color: "black",
+																// padding: "0px",
+																// WebkitTextStroke: "1px white",
+															}}
+														>
+															<h4 style={{
+																marginBottom: "-3px",
+															}}>{card?.cardName}</h4>
+															<p>{card?.cardMemo}</p>
+														</Box>
 													<CardActionArea
 														style={{
 															position: "relative",
@@ -126,19 +141,7 @@ const Deck: NextPage = () => {
 															height: "100%",
 														}}
 													>
-														<Box
-															style={{
-																position: "absolute",
-																bottom: "0",
-																zIndex: 1,
-																color: "black",
-																padding: "10px",
-																WebkitTextStroke: "1px white",
-															}}
-														>
-															<h2>{card?.cardName}</h2>
-															<p>{card?.cardMemo}</p>
-														</Box>
+														
 													</CardActionArea>
 												</Card>
 											</Grid>
@@ -217,7 +220,7 @@ const Deck: NextPage = () => {
 										width: "120px",
 									}}
 								>
-									Play
+									play
 								</Button>
 							</Grid>
 						</Grid>
