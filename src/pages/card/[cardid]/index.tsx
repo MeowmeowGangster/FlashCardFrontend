@@ -11,7 +11,6 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 import { cardById } from "@redux/selectors/card.selector";
-import { CreateCard } from "@interfaces/card.interface";
 import { getCardByID, UpdateCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
@@ -28,7 +27,6 @@ const EditCardPage: NextPage = () => {
 			dispatch(getCardByID(cardid as string));
 		}
 	}, [cardStatus, cardid, dispatch]);
-
 
 	const cardState = useSelector(cardById);
 
@@ -49,6 +47,12 @@ const EditCardPage: NextPage = () => {
 
 	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		event.preventDefault();
+		setCard({
+			...cardState,
+			[event.target.name]: event.target.value,
+			deckID: cardid as string,
+			file: imageFile,
+		});
 	};
 
 	const onSubmit = async (event: React.FormEvent) => {
@@ -66,10 +70,21 @@ const EditCardPage: NextPage = () => {
 			) : (
 				<Container>
 					<Stack
+						direction="row"
+						style={{
+							color: "white",
+							fontFamily: "Prompt",
+							justifyContent: "center",
+							marginBottom: "-20px",
+						}}
+					>
+						<h1>EDIT CARD</h1>
+					</Stack>
+					<Stack
 						rowGap={5}
 						style={{
 							padding: "10px",
-							height: "100vh",
+							// height: "100vh",
 							overflowY: "scroll",
 							justifyContent: "center",
 							alignContent: "center",
@@ -100,7 +115,7 @@ const EditCardPage: NextPage = () => {
 												name="cardName"
 												onChange={(e: any) => handleChange(e)}
 												value={card?.cardName}
-												placeholder={card?.cardName}
+												placeholder="Card Name"
 												style={{
 													width: "100%",
 													padding: "10px",
@@ -119,7 +134,7 @@ const EditCardPage: NextPage = () => {
 										style={{
 											marginTop: "20px",
 											width: "100%",
-											height: "100px",
+											height: "120px",
 											color: "#000000",
 											fontFamily: "Prompt",
 											fontSize: "1rem",
@@ -133,12 +148,57 @@ const EditCardPage: NextPage = () => {
 											<Typography variant="h6" component="h2">
 												Picture
 											</Typography>
+											<label>
+												<div>
+													<div
+														style={{
+															borderRadius: "20px",
+															padding: "4%",
+															backgroundColor: "white",
+															maxHeight: "50px",
+														}}
+													>
+														<Stack direction="row" spacing={2}>
+															<div
+																style={{
+																	borderRadius: "10px",
+																	minWidth: "40%",
+																	maxHeight: "25px",
+																	padding: "1%",
+																	paddingLeft: "10px",
+																	backgroundColor: "orange",
+																	width: "40%",
+																	fontFamily: "Prompt",
+																	fontSize: "80%",
+																	color: "white",
+																}}
+															>
+																Select picture
+															</div>
+															<div
+																style={{
+																	fontFamily: "Prompt",
+																	fontSize: "50%",
+																	color: "black",
+																}}
+															>
+																{imageFile?.name}
+															</div>
+														</Stack>
+													</div>
 
-											<input
-												type="file"
-												ref={cardimageRef}
-												onInput={onImageChange}
-											/>
+													<span>
+														<input
+															type="file"
+															ref={cardimageRef}
+															onInput={onImageChange}
+															style={{
+																visibility: "hidden",
+															}}
+														/>
+													</span>
+												</div>
+											</label>
 										</Stack>
 									</Container>
 									<Container
@@ -161,7 +221,7 @@ const EditCardPage: NextPage = () => {
 											<TextareaAutosize
 												name="cardMemo"
 												value={card?.cardMemo}
-												placeholder={card?.cardMemo}
+												placeholder="memo"
 												style={{
 													width: "100%",
 													padding: "10px",
