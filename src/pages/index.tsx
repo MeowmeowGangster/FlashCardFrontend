@@ -165,10 +165,10 @@ const Home: NextPage = () => {
 								<Slide direction="down" in={deck} timeout={500} key={idx}>
 									<Grid item xs={12}>
 										<Card
-											sx={{ maxWidth: 345 }}
 											style={{
 												borderRadius: "15px",
 												height: "150px",
+												width: "100%",
 											}}
 										>
 											<CardHeader
@@ -215,12 +215,12 @@ const Home: NextPage = () => {
 								<Button
 									style={{
 										backgroundColor: "#fb923c",
-										borderRadius: "10px",
+										borderRadius: "15px",
 										color: "#ffffff",
 										padding: "32px",
 										fontSize: "100px",
 										width: "100%",
-										height: "10rem",
+										height: "150px",
 										textAlign: "center",
 										verticalAlign: "middle",
 										textDecoration: "none",
