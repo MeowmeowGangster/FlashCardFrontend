@@ -14,26 +14,25 @@ import { cardById } from "@redux/selectors/card.selector";
 import { getCardByID, UpdateCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
+import { CardData, updateCard } from "@interfaces/card.interface";
 
 const EditCardPage: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<any>();
 	const { cardid } = router.query;
 	const [cardStatus, setCardStatus] = useState("idle");
-	const [card, setCard] = useState<any>(null);
 
+	const [cardName, setCardName] = useState<string>("");
+	const [memo, setMemo] = useState<string>("");
+
+	
 	useEffect(() => {
-		if (cardStatus === "idle") {
+		setCardStatus("loading");
+		if (cardStatus === "loading") {
 			dispatch(getCardByID(cardid as string));
 		}
 	}, [cardStatus, cardid, dispatch]);
-
 	const cardState = useSelector(cardById);
-
-	useEffect(() => {
-		setCard(cardState);
-	}, [cardState]);
-
 	const [isUploading, setIsUploading] = useState(false);
 	const [imageFile, setImageFile] = useState<File>();
 
@@ -45,21 +44,33 @@ const EditCardPage: NextPage = () => {
 		}
 	};
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		event.preventDefault();
-		setCard({
-			...cardState,
-			[event.target.name]: event.target.value,
-			deckID: cardid as string,
-			file: imageFile,
-		});
-	};
-
 	const onSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
+
+		if (imageFile) {
+			const data: updateCard = {
+				cardID: cardState?.cardID as string,
+				cardName: cardState?.cardName as string,
+				deckID: cardState?.deckID as string,
+				cardMemo: memo,
+				file: imageFile,
+				cardPic: undefined,
+			};
+			await dispatch(UpdateCard(data));
+		} else {
+			const data: updateCard = {
+				cardID: cardState?.cardID as string,
+				cardName: cardName,
+				deckID: cardState?.deckID as string,
+				cardMemo: memo,
+				cardPic: cardState?.cardPic as string,
+				file: undefined,
+			};
+			await dispatch(UpdateCard(data));
+		}
 		setIsUploading(true);
-		// await dispatch(CreateCard(cardState));
-		// router.push(`/deck/${deckid}`);
+
+		router.push(`/deck/${cardState?.deckID}`);
 		setIsUploading(false);
 	};
 
@@ -113,9 +124,12 @@ const EditCardPage: NextPage = () => {
 											</Typography>
 											<TextareaAutosize
 												name="cardName"
-												onChange={(e: any) => handleChange(e)}
-												value={card?.cardName}
+												onChange={(e) => {
+													setCardName(e.target.value);
+												}}
+												value={cardName ? cardName : cardState?.cardName}
 												placeholder="Card Name"
+												defaultValue={cardState?.cardName}
 												style={{
 													width: "100%",
 													padding: "10px",
@@ -164,7 +178,7 @@ const EditCardPage: NextPage = () => {
 																	borderRadius: "10px",
 																	minWidth: "40%",
 																	maxHeight: "25px",
-																	padding: "1%",
+																	padding: "2px",
 																	paddingLeft: "10px",
 																	backgroundColor: "orange",
 																	width: "40%",
@@ -178,8 +192,11 @@ const EditCardPage: NextPage = () => {
 															<div
 																style={{
 																	fontFamily: "Prompt",
-																	fontSize: "50%",
+																	fontSize: "100%",
 																	color: "black",
+																	textOverflow: "ellipsis",
+																	whiteSpace: "nowrap",
+																	overflow: "hidden",
 																}}
 															>
 																{imageFile?.name}
@@ -220,7 +237,8 @@ const EditCardPage: NextPage = () => {
 											</Typography>
 											<TextareaAutosize
 												name="cardMemo"
-												value={card?.cardMemo}
+												defaultValue={cardState?.cardMemo}
+												value={memo}
 												placeholder="memo"
 												style={{
 													width: "100%",
@@ -231,7 +249,7 @@ const EditCardPage: NextPage = () => {
 													backgroundColor: "#ffffff",
 													borderRadius: "20px",
 												}}
-												onChange={(e: any) => handleChange(e)}
+												onChange={(e: any) => setMemo(e.target.value)}
 											/>
 										</Stack>
 									</Container>
@@ -265,7 +283,7 @@ const EditCardPage: NextPage = () => {
 												width: "120px",
 											}}
 										>
-											Cancel
+											Delete
 										</Button>
 									</Grid>
 									<Grid item xs={6}>

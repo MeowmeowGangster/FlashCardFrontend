@@ -21,7 +21,6 @@ const CreateCardPage: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<any>();
 	const { deckid } = router.query;
-	const [image, setImage] = useState("");
 
 	const [cardState, setCard] = useState<CreateCard>({
 		cardMemo: "",
@@ -40,7 +39,6 @@ const CreateCardPage: NextPage = () => {
 		const files = cardimageRef.current?.files;
 		if (files) {
 			setImageFile(files[0]);
-			setImage(URL.createObjectURL(files[0]));
 		}
 	};
 
@@ -62,8 +60,6 @@ const CreateCardPage: NextPage = () => {
 		setIsUploading(false);
 	};
 
-	console.log(deckState);
-	console.log(cardState);
 	return (
 		<div className="bg">
 			{isUploading ? (
@@ -182,8 +178,13 @@ const CreateCardPage: NextPage = () => {
 																	fontSize: "50%",
 																	color: "black",
 																	maxWidth: "40px",
+																	textOverflow: "ellipsis",
+																	whiteSpace: "nowrap",
+																	overflow: "hidden",
 																}}
-															></div>
+															>
+																{imageFile?.name}
+															</div>
 														</Stack>
 													</div>
 
@@ -198,14 +199,6 @@ const CreateCardPage: NextPage = () => {
 														/>
 													</span>
 												</div>
-												{image && (
-													<Image
-														src={image}
-														alt="Picture of the author"
-														width={50}
-														height={50}
-													/>
-												)}
 											</label>
 										</Stack>
 									</Container>

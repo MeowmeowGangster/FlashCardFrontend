@@ -10,9 +10,9 @@ export interface Ideck {
 }
 
 export interface Icard {
-	cardId: string;
+	cardID: string;
 	cardName: string;
-	deckId: string;
+	deckID: string;
 	cardPic: string;
 	cardMemo: string;
 }
@@ -32,4 +32,5 @@ interface ICardsState {
 	isLoading: boolean;
 	error: string | null;
 	cardById: Icard | null;
+	randomCards: Icard[] | [];
 }

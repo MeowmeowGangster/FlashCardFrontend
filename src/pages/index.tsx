@@ -215,7 +215,7 @@ const Home: NextPage = () => {
 								<Button
 									style={{
 										backgroundColor: "#fb923c",
-										borderRadius: "1px",
+										borderRadius: "10px",
 										color: "#ffffff",
 										padding: "32px",
 										fontSize: "100px",

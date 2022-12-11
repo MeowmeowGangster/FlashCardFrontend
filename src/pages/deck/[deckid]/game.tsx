@@ -10,11 +10,38 @@ import {
 import type { NextPage } from "next";
 import router from "next/router";
 import ReactCardFlip from "react-card-flip";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import CardService from "@services/cards.services";
+import { getRandomCards } from "@redux/actions/card";
+import { useDispatch, useSelector } from "react-redux";
+import { getDeckById } from "@redux/actions/deck";
+import { deckById, decksData } from "@redux/selectors/decks.selector";
+import { randomCard } from "@interfaces/card.interface";
 
 const Game: NextPage = () => {
+	const dispatch = useDispatch<any>();
 	const [isFlipped, setIsFlipped] = useState(false);
+	const { deckid } = router.query;
+	const [card, setCard] = useState<any>(null);
+	const [activeCard, setActiveCard] = useState<any>(0);	
+
+	useEffect(() => {
+		dispatch(getDeckById(deckid as string));
+	}, [deckid, dispatch]);
+
+	const deck = useSelector(deckById);
+
+	useEffect(() => {
+		if (deck) {
+			const data: randomCard = {
+				deckID: deckid as string,
+				limit: deck.cards.length,
+			};
+			dispatch(getRandomCards(data));
+		}
+	}, [deck, deckid, dispatch]);
+
 	return (
 		<div className="bg">
 			<Container>
@@ -36,8 +63,10 @@ const Game: NextPage = () => {
 						}}
 					>
 						<Stack direction="row" spacing={3} justifyContent="space-between">
-							<Typography variant="h6" component="h2" 
-							onClick={() => router.back()}
+							<Typography
+								variant="h6"
+								component="h2"
+								onClick={() => router.back()}
 							>
 								Back
 							</Typography>

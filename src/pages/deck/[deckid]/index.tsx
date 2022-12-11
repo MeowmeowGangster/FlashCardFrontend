@@ -30,7 +30,8 @@ const Deck: NextPage = () => {
 	const [deckStatus, setDeckStatus] = useState("idle");
 
 	useEffect(() => {
-		if (deckStatus === "idle") {
+		setDeckStatus("loading");
+		if (deckStatus === "loading") {
 			dispatch(getDeckById(deckid as string));
 		}
 	}, [deckStatus, deckid, dispatch]);
@@ -97,65 +98,64 @@ const Deck: NextPage = () => {
 												: {})}
 										>
 											<Grid item xs={2} sm={4} md={4}>
-											<CardActionArea
-														onClick={() => {
-															router.push(`/card/${card.cardID}`);
-														}}
-														style={{
-															position: "relative",
-															width: "100%",
-															height: "100%",
-														}}
-													>
-														<Card
+												<CardActionArea
+													onClick={() => {
+														router.push(`/card/${card.cardID}/edit`);
+													}}
 													style={{
-														backgroundColor: "white",
-														borderRadius: "10px",
-														color: "black",
-														fontSize: "12px",
-														width: "130px",
-														height: "180px",
-														textAlign: "center",
-														verticalAlign: "middle",
-														textDecoration: "none",
-														boxShadow: "#000",
 														position: "relative",
-														padding: "10px",
+														width: "100%",
+														height: "100%",
 													}}
 												>
-													{" "}
-													<CardMedia>
-														<Image
-															alt="card-cover"
-															src={card?.cardPic}
-															width={200}
-															height={200}
-															layout="responsive"
-															objectFit="cover"
-														/>
-													</CardMedia>
-													<Box
+													<Card
 														style={{
-															position: "absolute",
-															bottom: "0",
-															zIndex: 2,
+															backgroundColor: "white",
+															borderRadius: "10px",
 															color: "black",
-															// padding: "0px",
-															// WebkitTextStroke: "1px white",
+															fontSize: "12px",
+															width: "130px",
+															height: "180px",
+															textAlign: "center",
+															verticalAlign: "middle",
+															textDecoration: "none",
+															boxShadow: "#000",
+															position: "relative",
+															padding: "10px",
 														}}
 													>
-														<h4
+														{" "}
+														<CardMedia>
+															<Image
+																alt="card-cover"
+																src={card?.cardPic}
+																width={200}
+																height={200}
+																layout="responsive"
+																objectFit="cover"
+															/>
+														</CardMedia>
+														<Box
 															style={{
-																marginBottom: "-3px",
+																position: "absolute",
+																bottom: "0",
+																zIndex: 2,
+																color: "black",
+																// padding: "0px",
+																// WebkitTextStroke: "1px white",
 															}}
 														>
-															{card?.cardName}
-														</h4>
-														<p>{card?.cardMemo}</p>
-													</Box>
-													
-												</Card>
-													</CardActionArea>
+															<h4
+																style={{
+																	marginBottom: "-3px",
+																}}
+															>
+																{card?.cardName}
+															</h4>
+															<p>{card?.cardMemo}</p>
+														</Box>
+													</Card>
+												</CardActionArea>
 											</Grid>
 										</Grow>
 									))}

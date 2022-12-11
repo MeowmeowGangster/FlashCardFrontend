@@ -1,11 +1,10 @@
 import { filesUpload } from "./file.interface";
-
+import { Icard } from "./state.interface";
 export interface CardDataResponse {
 	cardData: CardData[];
 	message: string;
 }
 export interface CardData {
-	ownerID: string;
 	cardID: string;
 	cardPic: string;
 	cardName: string;
@@ -23,8 +22,17 @@ export interface CreateCard {
 export interface updateCard {
 	cardName: string;
 	cardID: string;
-	cardPic: string;
+	cardPic: string | undefined;
 	deckID: string;
 	cardMemo: string;
-	file: File | Blob | undefined ;
+	file: File | Blob | undefined;
+}
+
+export interface randomCard {
+	deckID: string;
+	limit: number;
+}
+
+export interface randomCardResponse {
+	cardData: Icard[];
 }

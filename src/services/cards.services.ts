@@ -1,5 +1,4 @@
 import { CreateCard, updateCard } from "@interfaces/card.interface";
-import { filesUpload } from "@interfaces/file.interface";
 import { getWithExpiry } from "@utils/localstorage";
 
 import { AxiosResponse, default as axios } from "axios";
@@ -48,14 +47,15 @@ const updateCard = async (cardData: updateCard): Promise<AxiosResponse> => {
 	if (file) {
 		fromData.append("file", file);
 	}
-	console.log(cardData.deckID);
 
-	fromData.append("cardPic", cardData.cardPic);
 	fromData.append("cardName", cardData.cardName);
 	fromData.append("cardMemo", cardData.cardMemo);
 	fromData.append("deckID", cardData.deckID);
+	if (cardData.cardPic) {
+		fromData.append("cardPic", cardData.cardPic);
+	}
 
-	const response = await axios.put(`/cards`, cardData, {
+	const response = await axios.patch(`/cards/${cardData.cardID}`, cardData, {
 		method: "PATCH",
 		headers: headers,
 	});
