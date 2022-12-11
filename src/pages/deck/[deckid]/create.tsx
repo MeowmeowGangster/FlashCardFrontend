@@ -8,15 +8,13 @@ import {
 } from "@mui/material";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import React, { useRef, useState } from "react";
-import { deckById } from "@redux/selectors/decks.selector";
 import { CreateCard } from "@interfaces/card.interface";
 import { createCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
 import Image from "next/image";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const CreateCardPage: NextPage = () => {
 	const router = useRouter();
@@ -31,7 +29,7 @@ const CreateCardPage: NextPage = () => {
 		file: undefined,
 	});
 
-	const deckState = useSelector(deckById);
+	
 
 	const [isUploading, setIsUploading] = useState(false);
 	const [imageFile, setImageFile] = useState<File>();
@@ -39,6 +37,7 @@ const CreateCardPage: NextPage = () => {
 	const cardimageRef = useRef<HTMLInputElement>(null);
 	const onImageChange = () => {
 		const files = cardimageRef.current?.files;
+		console.log(files);
 		if (files) {
 			setImageFile(files[0]);
 			setImage(URL.createObjectURL(files[0]));
@@ -63,8 +62,8 @@ const CreateCardPage: NextPage = () => {
 		setIsUploading(false);
 	};
 
-	console.log(deckState);
-	console.log(cardState);
+	// console.log(deckState);
+	// console.log(cardState);
 	return (
 		<div className="bg">
 			{isUploading ? (
