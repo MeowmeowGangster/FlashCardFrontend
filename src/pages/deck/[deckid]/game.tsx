@@ -100,7 +100,7 @@ const Game: NextPage = () => {
 												marginBottom: "-5%",
 											}}
 										>
-											{card.cardName}
+											{card?.cardName}
 										</Typography>
 									</Stack>
 
@@ -134,8 +134,8 @@ const Game: NextPage = () => {
 													{/* Full cover imagge here */}
 													<Image
 														src={
-															card.cardPic
-																? card.cardPic
+															card?.cardPic
+																? card?.cardPic
 																: "/images/no-pictures.png"
 														}
 														alt="test"
@@ -169,7 +169,7 @@ const Game: NextPage = () => {
 													component="h2"
 													style={{ color: "black" }}
 												>
-													{card.cardMemo}
+													{card?.cardMemo}
 												</Typography>
 											</Stack>
 										</Card>

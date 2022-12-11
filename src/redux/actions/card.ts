@@ -1,4 +1,9 @@
-import { CreateCard, randomCard, updateCard } from "@interfaces/card.interface";
+import {
+	CreateCard,
+	deleteCard,
+	randomCard,
+	updateCard,
+} from "@interfaces/card.interface";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import CardService from "@services/cards.services";
 
@@ -43,10 +48,10 @@ export const UpdateCard = createAsyncThunk(
 	},
 );
 
-export const deleteCard = createAsyncThunk(
+export const DeleteCard = createAsyncThunk(
 	"card/deletecard",
-	async (cardID: string, thunkAPI) => {
-		const res = await CardService.deleteCard(cardID);
+	async (data: deleteCard, thunkAPI) => {
+		const res = await CardService.deleteCard(data.cardID, data.deckID)	;
 		switch (res.status) {
 			case 200:
 				return res.data;

@@ -36,3 +36,7 @@ export interface randomCard {
 export interface randomCardResponse {
 	cardData: Icard[];
 }
+export interface deleteCard {
+	cardID: string;
+	deckID: string;
+}

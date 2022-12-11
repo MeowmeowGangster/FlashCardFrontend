@@ -15,13 +15,14 @@ import { createCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
 import Image from "next/image";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
 const CreateCardPage: NextPage = () => {
-  const router = useRouter();
-  const dispatch = useDispatch<any>();
-  const { deckid } = router.query;
-  const [image, setImage] = useState("");
+	const router = useRouter();
+	const dispatch = useDispatch<any>();
+	const { deckid } = router.query;
+	const [image, setImage] = useState("");
 
 	const [cardState, setCard] = useState<CreateCard>({
 		cardMemo: "",
@@ -29,8 +30,6 @@ const CreateCardPage: NextPage = () => {
 		deckID: deckid as string,
 		file: undefined,
 	});
-
-	
 
 	const [isUploading, setIsUploading] = useState(false);
 	const [imageFile, setImageFile] = useState<File>();
@@ -62,8 +61,6 @@ const CreateCardPage: NextPage = () => {
 		setIsUploading(false);
 	};
 
-	
-	
 	return (
 		<div className="bg">
 			{isUploading ? (
@@ -163,12 +160,12 @@ const CreateCardPage: NextPage = () => {
 															<div
 																style={{
 																	borderRadius: "10px",
-																	minWidth: "50%",
+																	minWidth: "45%",
 																	maxHeight: "25px",
 																	padding: "1%",
 																	paddingLeft: "10px",
 																	backgroundColor: "orange",
-																	width: "50%",
+																	width: "45%",
 																	fontFamily: "Prompt",
 																	fontSize: "80%",
 																	color: "white",
@@ -176,14 +173,21 @@ const CreateCardPage: NextPage = () => {
 															>
 																Select picture
 															</div>
-															<div
-																style={{
-																	fontFamily: "Prompt",
-																	fontSize: "50%",
-																	color: "black",
-																	maxWidth: "40px",
-																}}
-															></div>
+															{imageFile ? (
+																<CheckCircleOutlineIcon
+																	style={{
+																		color: "green",
+																		marginLeft: "45%",
+																	}}
+																/>
+															) : (
+																<RadioButtonUncheckedIcon
+																	style={{
+																		color: "green",
+																		marginLeft: "45%",
+																	}}
+																/>
+															)}
 														</Stack>
 													</div>
 
@@ -198,14 +202,6 @@ const CreateCardPage: NextPage = () => {
 														/>
 													</span>
 												</div>
-												{image && (
-													<Image
-														src={image}
-														alt="Picture of the author"
-														width={50}
-														height={50}
-													/>
-												)}
 											</label>
 										</Stack>
 									</Container>

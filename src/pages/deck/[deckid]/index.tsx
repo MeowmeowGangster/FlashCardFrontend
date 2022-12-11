@@ -233,7 +233,7 @@ const Deck: NextPage = () => {
 								<Button
 									onClick={() => {
 										{
-											card.length < 3
+											deck?.cards.length < 3
 												? toast.error("Please add more cards")
 												: router.push(`/deck/${deckid}/game`);
 										}
