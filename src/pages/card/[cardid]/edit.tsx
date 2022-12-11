@@ -16,6 +16,7 @@ import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { updateCard } from "@interfaces/card.interface";
+import CardService from "@services/cards.services";
 
 const EditCardPage: NextPage = () => {
 	const router = useRouter();
@@ -298,7 +299,8 @@ const EditCardPage: NextPage = () => {
 									<Grid item xs={6}>
 										<Button
 											onClick={() => {
-												router.back();
+												CardService.deleteCard(card.cardID);
+												router.push("/deck/" + card?.deckID);
 											}}
 											style={{
 												backgroundColor: "transparent",
@@ -309,7 +311,7 @@ const EditCardPage: NextPage = () => {
 												width: "120px",
 											}}
 										>
-											Cancel
+											DELETE
 										</Button>
 									</Grid>
 									<Grid item xs={6}>

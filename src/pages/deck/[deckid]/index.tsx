@@ -21,6 +21,8 @@ import { getDeckById } from "@redux/actions/deck";
 import { deckById } from "@redux/selectors/decks.selector";
 import Link from "next/link";
 import Image from "next/image";
+import { card } from "@redux/slice";
+import { toast, Toaster } from "react-hot-toast";
 
 const Deck: NextPage = () => {
 	const router = useRouter();
@@ -43,6 +45,7 @@ const Deck: NextPage = () => {
 	}, [deckState]);
 	return (
 		<div className="bg">
+			<div><Toaster/></div>
 			<Container>
 				<Stack
 					rowGap={5}
@@ -221,11 +224,17 @@ const Deck: NextPage = () => {
 								>
 									Cancel
 								</Button>
+						
 							</Grid>
 							<Grid item xs={6}>
 								<Button
 									onClick={() => {
-										router.push(`/deck/${deckid}/game`);
+										{
+											card.length < 3
+												? toast.error("Please add more cards")
+												: router.push(`/deck/${deckid}/game`);
+										}
+										
 									}}
 									style={{
 										backgroundColor: "#FDE68A",

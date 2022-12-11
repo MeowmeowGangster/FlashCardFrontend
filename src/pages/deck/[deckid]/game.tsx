@@ -1,37 +1,39 @@
 import {
-  Container,
-  Stack,
-  AppBar,
-  Typography,
-  Grid,
-  Button,
-  Card,
-  CardContent,
+	Container,
+	Stack,
+	AppBar,
+	Typography,
+	Grid,
+	Button,
+	Card,
 } from "@mui/material";
 import type { NextPage } from "next";
 import router from "next/router";
 import ReactCardFlip from "react-card-flip";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import CardService from "@services/cards.services";
 import { getRandomCards } from "@redux/actions/card";
 import { useDispatch, useSelector } from "react-redux";
 import { getDeckById } from "@redux/actions/deck";
-import { deckById, decksData } from "@redux/selectors/decks.selector";
+import { deckById } from "@redux/selectors/decks.selector";
 import { randomCard } from "@interfaces/card.interface";
+import { randomCards } from "@redux/selectors/card.selector";
 
 const Game: NextPage = () => {
 	const dispatch = useDispatch<any>();
 	const [isFlipped, setIsFlipped] = useState(false);
 	const { deckid } = router.query;
-	const [card, setCard] = useState<any>(null);
-	const [activeCard, setActiveCard] = useState<any>(0);	
+	const [card, setCard] = useState<any>({});
+	const [activeCard, setActiveCard] = useState<any>(0);
 
 	useEffect(() => {
 		dispatch(getDeckById(deckid as string));
 	}, [deckid, dispatch]);
 
 	const deck = useSelector(deckById);
+	const cards = useSelector(randomCards);
+
+	console.log("card", cards);
 
 	useEffect(() => {
 		if (deck) {
@@ -42,6 +44,10 @@ const Game: NextPage = () => {
 			dispatch(getRandomCards(data));
 		}
 	}, [deck, deckid, dispatch]);
+
+	useEffect(() => {
+		setCard(cards[activeCard]);
+	}, [activeCard, cards]);
 
 	return (
 		<div className="bg">
@@ -85,15 +91,19 @@ const Game: NextPage = () => {
 							>
 								<Stack rowGap={5}>
 									<Stack direction="row" spacing={3} justifyContent="center">
-									<Typography variant="h4" component="h2" style={{
-										color: "white",
-										marginTop: "5%",
-										marginBottom: "-5%",
-									}}>
-										Card 1
-									</Typography>
+										<Typography
+											variant="h4"
+											component="h2"
+											style={{
+												color: "white",
+												marginTop: "5%",
+												marginBottom: "-5%",
+											}}
+										>
+											{card.cardName}
+										</Typography>
 									</Stack>
-									
+
 									<ReactCardFlip
 										isFlipped={isFlipped}
 										flipDirection="horizontal"
@@ -123,7 +133,11 @@ const Game: NextPage = () => {
 												>
 													{/* Full cover imagge here */}
 													<Image
-														src="https://images.unsplash.com/photo-1670612389555-1de63603416a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=987&q=80"
+														src={
+															card.cardPic
+																? card.cardPic
+																: "/images/no-pictures.png"
+														}
 														alt="test"
 														width={500}
 														height={500}
@@ -150,8 +164,12 @@ const Game: NextPage = () => {
 												spacing={2}
 												marginTop={"70%"}
 											>
-												<Typography variant="h4" component="h2" style={{color:"black"}}>
-													Back
+												<Typography
+													variant="h4"
+													component="h2"
+													style={{ color: "black" }}
+												>
+													{card.cardMemo}
 												</Typography>
 											</Stack>
 										</Card>
@@ -173,7 +191,13 @@ const Game: NextPage = () => {
 						>
 							<Grid item md={4}>
 								<Button
-									onClick={() => {}}
+									onClick={() => {
+										if (activeCard < cards.length - 1) {
+											setActiveCard(activeCard + 1);
+										} else {
+											router.push(`/deck/${card.deckID}`);
+										}
+									}}
 									style={{
 										backgroundColor: "#fb923c",
 										color: "white",

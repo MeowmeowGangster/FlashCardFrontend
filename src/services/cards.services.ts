@@ -61,8 +61,8 @@ const updateCard = async (cardData: updateCard): Promise<AxiosResponse> => {
 	});
 	return response;
 };
-const deleteCard = async (deckID: string) => {
-	const response = await axios.delete<AxiosResponse>(`/decks/${deckID}`, {
+const deleteCard = async (cardID: string) => {
+	const response = await axios.delete<AxiosResponse>(`/cards/${cardID}`, {
 		method: "DELETE",
 		headers: {
 			Authorization: `Bearer ${getWithExpiry("token")}`,
@@ -72,7 +72,7 @@ const deleteCard = async (deckID: string) => {
 };
 
 const randomCard = async (deckID: string, limit: number) => {
-	const response = await axios.get<AxiosResponse>(
+	const response = await axios.get(
 		`/cards/random/${deckID}?limit=${limit}`,
 		{
 			method: "GET",

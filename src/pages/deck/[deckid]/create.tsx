@@ -1,10 +1,10 @@
 import {
-  Container,
-  Stack,
-  Grid,
-  Button,
-  Typography,
-  TextareaAutosize,
+	Container,
+	Stack,
+	Grid,
+	Button,
+	Typography,
+	TextareaAutosize,
 } from "@mui/material";
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
@@ -16,7 +16,7 @@ import { createCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
 import Image from "next/image";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 
 const CreateCardPage: NextPage = () => {
 	const router = useRouter();
@@ -24,17 +24,17 @@ const CreateCardPage: NextPage = () => {
 	const { deckid } = router.query;
 	const [image, setImage] = useState("");
 
-  const [cardState, setCard] = useState<CreateCard>({
-    cardMemo: "",
-    cardName: "",
-    deckID: deckid as string,
-    file: undefined,
-  });
+	const [cardState, setCard] = useState<CreateCard>({
+		cardMemo: "",
+		cardName: "",
+		deckID: deckid as string,
+		file: undefined,
+	});
 
-  const deckState = useSelector(deckById);
+	const deckState = useSelector(deckById);
 
-  const [isUploading, setIsUploading] = useState(false);
-  const [imageFile, setImageFile] = useState<File>();
+	const [isUploading, setIsUploading] = useState(false);
+	const [imageFile, setImageFile] = useState<File>();
 
 	const cardimageRef = useRef<HTMLInputElement>(null);
 	const onImageChange = () => {
@@ -45,23 +45,23 @@ const CreateCardPage: NextPage = () => {
 		}
 	};
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    event.preventDefault();
-    setCard({
-      ...cardState,
-      [event.target.name]: event.target.value,
-      deckID: deckid as string,
-      file: imageFile,
-    });
-  };
+	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		event.preventDefault();
+		setCard({
+			...cardState,
+			[event.target.name]: event.target.value,
+			deckID: deckid as string,
+			file: imageFile,
+		});
+	};
 
-  const onSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    setIsUploading(true);
-    await dispatch(createCard(cardState));
-    router.push(`/deck/${deckid}`);
-    setIsUploading(false);
-  };
+	const onSubmit = async (event: React.FormEvent) => {
+		event.preventDefault();
+		setIsUploading(true);
+		await dispatch(createCard(cardState));
+		router.push(`/deck/${deckid}`);
+		setIsUploading(false);
+	};
 
 	console.log(deckState);
 	console.log(cardState);
@@ -210,6 +210,7 @@ const CreateCardPage: NextPage = () => {
 											</label>
 										</Stack>
 									</Container>
+
 									<Container
 										style={{
 											marginTop: "20px",
@@ -217,89 +218,89 @@ const CreateCardPage: NextPage = () => {
 											height: "200px",
 											color: "#000000",
 
-                      backgroundColor: "#fde68a",
-                      borderRadius: "20px",
-                      padding: "20px",
-                      boxShadow: "10px 10px 20px -9px rgba(0,0,0,0.29)",
-                    }}
-                  >
-                    <Stack>
-                      <Typography variant="h6" component="h2">
-                        Memo
-                      </Typography>
-                      <TextareaAutosize
-                        name="cardMemo"
-                        value={cardState.cardMemo}
-                        placeholder="memo"
-                        style={{
-                          width: "100%",
-                          padding: "10px",
-                          color: "#000000",
-                          height: "100px",
-                          border: "none",
-                          backgroundColor: "#ffffff",
-                          borderRadius: "20px",
-                        }}
-                        onChange={(e: any) => handleChange(e)}
-                      />
-                    </Stack>
-                  </Container>
-                </Stack>
-              </Container>
-              <Stack
-                style={{
-                  marginTop: "40px",
-                }}
-              >
-                <Grid
-                  container
-                  spacing={12}
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                    alignItems: "center",
-                  }}
-                >
-                  <Grid item xs={6}>
-                    <Button
-                      onClick={() => {
-                        router.back();
-                      }}
-                      style={{
-                        backgroundColor: "transparent",
-                        color: "white",
-                        borderRadius: "50px",
-                        padding: "10px 20px",
-                        fontFamily: "Prompt",
-                        width: "120px",
-                      }}
-                    >
-                      Cancel
-                    </Button>
-                  </Grid>
-                  <Grid item xs={6}>
-                    <Button
-                      type="submit"
-                      style={{
-                        backgroundColor: "#fb923c",
-                        color: "white",
-                        borderRadius: "50px",
-                        padding: "10px 20px",
-                        fontFamily: "Prompt",
-                        width: "120px",
-                      }}
-                    >
-                      Save
-                    </Button>
-                  </Grid>
-                </Grid>
-              </Stack>
-            </form>
-          </Stack>
-        </Container>
-      )}
-    </div>
-  );
+											backgroundColor: "#fde68a",
+											borderRadius: "20px",
+											padding: "20px",
+											boxShadow: "10px 10px 20px -9px rgba(0,0,0,0.29)",
+										}}
+									>
+										<Stack>
+											<Typography variant="h6" component="h2">
+												Memo
+											</Typography>
+											<TextareaAutosize
+												name="cardMemo"
+												value={cardState.cardMemo}
+												placeholder="memo"
+												style={{
+													width: "100%",
+													padding: "10px",
+													color: "#000000",
+													height: "100px",
+													border: "none",
+													backgroundColor: "#ffffff",
+													borderRadius: "20px",
+												}}
+												onChange={(e: any) => handleChange(e)}
+											/>
+										</Stack>
+									</Container>
+								</Stack>
+							</Container>
+							<Stack
+								style={{
+									marginTop: "40px",
+								}}
+							>
+								<Grid
+									container
+									spacing={12}
+									style={{
+										display: "flex",
+										flexDirection: "row",
+										alignItems: "center",
+									}}
+								>
+									<Grid item xs={6}>
+										<Button
+											onClick={() => {
+												router.back();
+											}}
+											style={{
+												backgroundColor: "transparent",
+												color: "white",
+												borderRadius: "50px",
+												padding: "10px 20px",
+												fontFamily: "Prompt",
+												width: "120px",
+											}}
+										>
+											Cancel
+										</Button>
+									</Grid>
+									<Grid item xs={6}>
+										<Button
+											type="submit"
+											style={{
+												backgroundColor: "#fb923c",
+												color: "white",
+												borderRadius: "50px",
+												padding: "10px 20px",
+												fontFamily: "Prompt",
+												width: "120px",
+											}}
+										>
+											Save
+										</Button>
+									</Grid>
+								</Grid>
+							</Stack>
+						</form>
+					</Stack>
+				</Container>
+			)}
+		</div>
+	);
 };
 
 export default CreateCardPage;
