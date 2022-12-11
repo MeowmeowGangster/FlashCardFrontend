@@ -51,7 +51,12 @@ const Login: NextPage = () => {
 									boxShadow: "0 0 0.5rem rgba(0, 0, 0, 0.5)",
 								}}
 							>
-								<Image src="/line.webp" alt="line" width={30} height={30} />
+								<Image
+									src="/images/line.webp"
+									alt="line"
+									width={30}
+									height={30}
+								/>
 
 								<span
 									style={{

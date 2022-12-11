@@ -9,7 +9,7 @@ import {
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import React, { memo, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { cardById } from "@redux/selectors/card.selector";
 import { getCardByID, UpdateCard } from "@redux/actions/card";
 import Loading from "@components/loading";
@@ -23,6 +23,9 @@ const EditCardPage: NextPage = () => {
 	const { cardid } = router.query;
 	const [cardStatus, setCardStatus] = useState("idle");
 	const [card, setCard] = useState<any>(null);
+	const [cardName, setCardName] = useState("");
+	const [memo, setMemo] = useState("");
+	const [isDataModify, setIsDataisDataModify] = useState(false);
 
 	useEffect(() => {
 		if (cardStatus === "idle") {
@@ -53,9 +56,9 @@ const EditCardPage: NextPage = () => {
 		if (imageFile) {
 			const data: updateCard = {
 				cardID: cardState?.cardID as string,
-				cardName: cardState?.cardName as string,
+				cardName: card.cardName,
 				deckID: cardState?.deckID as string,
-				cardMemo: memo,
+				cardMemo: card.cardMemo,
 				file: imageFile,
 				cardPic: undefined,
 			};
@@ -63,9 +66,9 @@ const EditCardPage: NextPage = () => {
 		} else {
 			const data: updateCard = {
 				cardID: cardState?.cardID as string,
-				cardName: cardName,
+				cardName: card.cardName,
 				deckID: cardState?.deckID as string,
-				cardMemo: memo,
+				cardMemo: card.cardMemo,
 				cardPic: cardState?.cardPic as string,
 				file: undefined,
 			};
@@ -78,7 +81,11 @@ const EditCardPage: NextPage = () => {
 	};
 
 	function handleChange(e: any): void {
-		throw new Error("Function not implemented.");
+		setCard({
+			...card,
+			[e.target.name]: e.target.value,
+		});
+		setIsDataisDataModify(true);
 	}
 
 	return (
@@ -87,19 +94,47 @@ const EditCardPage: NextPage = () => {
 				<Loading animationData={Success} />
 			) : (
 				<Container>
+					<Grid
+						justifyContent="space-between"
+						style={{
+							display: "flex",
+							flexDirection: "row",
+						}}
+					>
+						<ArrowBackIosIcon
+							style={{
+								marginTop: "10%",
+								marginLeft: "3%",
+								color: "white",
+							}}
+							onClick={() => {
+								router.back();
+							}}
+						/>
+
+						<Stack
+							style={{
+								color: "white",
+								justifyContent: "center",
+								marginBottom: "-40px",
+								marginLeft: "-5%",
+								fontFamily: "Prompt",
+							}}
+						>
+							<h1>EDIT CARD</h1>
+						</Stack>
+						<div></div>
+					</Grid>
 					<Stack
-						direction="row"
+						rowGap={5}
 						style={{
 							padding: "10px",
-							// height: "100vh",
 							overflowY: "scroll",
 							justifyContent: "center",
 							alignContent: "center",
 							fontFamily: "Prompt",
 						}}
 					>
-						<h1>EDIT CARD</h1>
-
 						<form onSubmit={onSubmit}>
 							<Container>
 								<Stack>
@@ -123,7 +158,7 @@ const EditCardPage: NextPage = () => {
 											<TextareaAutosize
 												name="cardName"
 												onChange={(e: any) => handleChange(e)}
-												value={card?.cardName}
+												defaultValue={card?.cardName}
 												placeholder="Card Name"
 												style={{
 													width: "100%",

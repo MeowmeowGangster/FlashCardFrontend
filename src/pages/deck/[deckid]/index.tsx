@@ -126,9 +126,10 @@ const Deck: NextPage = () => {
 													>
 														{" "}
 														<CardMedia>
+															
 															<Image
 																alt="card-cover"
-																src={card?.cardPic}
+																src={card?.cardPic || "/images/no-pictures.png"} 
 																width={200}
 																height={200}
 																layout="responsive"

@@ -84,9 +84,16 @@ const Game: NextPage = () => {
 								}}
 							>
 								<Stack rowGap={5}>
-									<Typography variant="h4" component="h2">
+									<Stack direction="row" spacing={3} justifyContent="center">
+									<Typography variant="h4" component="h2" style={{
+										color: "white",
+										marginTop: "5%",
+										marginBottom: "-5%",
+									}}>
 										Card 1
 									</Typography>
+									</Stack>
+									
 									<ReactCardFlip
 										isFlipped={isFlipped}
 										flipDirection="horizontal"
@@ -126,13 +133,12 @@ const Game: NextPage = () => {
 															borderRadius: "15px",
 														}}
 													/>
-													l{" "}
 												</Typography>
 											</Stack>
 										</Card>
 										<Card
 											style={{
-												backgroundColor: "white",
+												backgroundColor: "#FDE68A",
 												borderRadius: "15px",
 												height: "500px",
 											}}
@@ -140,12 +146,11 @@ const Game: NextPage = () => {
 										>
 											<Stack
 												direction="row"
-												spacing={3}
-												style={{
-													padding: "20px",
-												}}
+												justifyContent={"center"}
+												spacing={2}
+												marginTop={"70%"}
 											>
-												<Typography variant="h6" component="h2">
+												<Typography variant="h4" component="h2" style={{color:"black"}}>
 													Back
 												</Typography>
 											</Stack>
