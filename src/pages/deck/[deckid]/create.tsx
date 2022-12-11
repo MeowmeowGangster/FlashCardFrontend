@@ -16,13 +16,14 @@ import { createCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
 import Image from "next/image";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RadioButtonUncheckedIcon from '@mui/icons-material/RadioButtonUnchecked';
 
 const CreateCardPage: NextPage = () => {
-	const router = useRouter();
-	const dispatch = useDispatch<any>();
-	const { deckid } = router.query;
-	const [image, setImage] = useState("");
+  const router = useRouter();
+  const dispatch = useDispatch<any>();
+  const { deckid } = router.query;
+  const [image, setImage] = useState("");
 
   const [cardState, setCard] = useState<CreateCard>({
     cardMemo: "",
@@ -36,14 +37,14 @@ const CreateCardPage: NextPage = () => {
   const [isUploading, setIsUploading] = useState(false);
   const [imageFile, setImageFile] = useState<File>();
 
-	const cardimageRef = useRef<HTMLInputElement>(null);
-	const onImageChange = () => {
-		const files = cardimageRef.current?.files;
-		if (files) {
-			setImageFile(files[0]);
-			setImage(URL.createObjectURL(files[0]));
-		}
-	};
+  const cardimageRef = useRef<HTMLInputElement>(null);
+  const onImageChange = () => {
+    const files = cardimageRef.current?.files;
+    if (files) {
+      setImageFile(files[0]);
+      setImage(URL.createObjectURL(files[0]));
+    }
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -63,159 +64,155 @@ const CreateCardPage: NextPage = () => {
     setIsUploading(false);
   };
 
-	console.log(deckState);
-	console.log(cardState);
-	return (
-		<div className="bg">
-			{isUploading ? (
-				<Loading animationData={Success} />
-			) : (
-				<Container>
-					<Stack
-						direction="row"
-						style={{
-							color: "white",
-							fontFamily: "Prompt",
-							justifyContent: "center",
-							marginBottom: "-20px",
-						}}
-					>
-						<h1>CREATE CARD</h1>
-					</Stack>
-					<Stack
-						rowGap={5}
-						style={{
-							padding: "10px",
-							// height: "100vh",
-							overflowY: "scroll",
-							justifyContent: "center",
-							alignContent: "center",
-							fontFamily: "Prompt",
-						}}
-					>
-						<form onSubmit={onSubmit}>
-							<Container>
-								<Stack>
-									<Container
-										style={{
-											marginTop: "20px",
-											width: "100%",
-											height: "160px",
-											color: "#000000",
-											padding: "20px",
-											backgroundColor: "#fde68a",
-											borderRadius: "20px",
-											border: "none",
-											boxShadow: "10px 10px 20px -9px rgba(0,0,0,0.29)",
-										}}
-									>
-										<Stack rowGap={5}>
-											<Typography variant="h6" component="h2">
-												Name Your Card
-											</Typography>
-											<TextareaAutosize
-												name="cardName"
-												onChange={(e: any) => handleChange(e)}
-												value={cardState.cardName}
-												placeholder="Card Name"
-												style={{
-													width: "100%",
-													padding: "10px",
-													color: "#000000",
-													height: "50px",
-													backgroundColor: "#ffffff",
-													borderRadius: "50px",
-													border: "none",
-													fontFamily: "Prompt",
-													verticalAlign: "center",
-												}}
-											/>
-										</Stack>
-									</Container>
-									<Container
-										style={{
-											marginTop: "20px",
-											width: "100%",
-											height: "100%",
-											color: "#000000",
-											fontFamily: "Prompt",
-											fontSize: "1rem",
-											backgroundColor: "#fde68a",
-											borderRadius: "20px",
-											padding: "20px",
-											boxShadow: "10px 10px 20px -9px rgba(0,0,0,0.29)",
-										}}
-									>
-										<Stack>
-											<Typography variant="h6" component="h2">
-												Picture
-											</Typography>
-											<label>
-												<div>
-													<div
-														style={{
-															borderRadius: "20px",
-															padding: "4%",
-															backgroundColor: "white",
-															maxHeight: "50px",
-														}}
-													>
-														<Stack direction="row" spacing={2}>
-															<div
-																style={{
-																	borderRadius: "10px",
-																	minWidth: "50%",
-																	maxHeight: "25px",
-																	padding: "1%",
-																	paddingLeft: "10px",
-																	backgroundColor: "orange",
-																	width: "50%",
-																	fontFamily: "Prompt",
-																	fontSize: "80%",
-																	color: "white",
-																}}
-															>
-																Select picture
-															</div>
-															<div
-																style={{
-																	fontFamily: "Prompt",
-																	fontSize: "50%",
-																	color: "black",
-																	maxWidth: "40px",
-																}}
-															></div>
-														</Stack>
-													</div>
-
-													<span>
-														<input
-															type="file"
-															ref={cardimageRef}
-															onInput={onImageChange}
-															style={{
-																visibility: "hidden",
-															}}
-														/>
-													</span>
-												</div>
-												{image && (
-													<Image
-														src={image}
-														alt="Picture of the author"
-														width={50}
-														height={50}
-													/>
-												)}
-											</label>
-										</Stack>
-									</Container>
-									<Container
-										style={{
-											marginTop: "20px",
-											width: "100%",
-											height: "200px",
-											color: "#000000",
+  console.log(deckState);
+  console.log(cardState);
+  return (
+    <div className="bg">
+      {isUploading ? (
+        <Loading animationData={Success} />
+      ) : (
+        <Container>
+          <Stack
+            direction="row"
+            style={{
+              color: "white",
+              fontFamily: "Prompt",
+              justifyContent: "center",
+              marginBottom: "-20px",
+            }}
+          >
+            <h1>CREATE CARD</h1>
+          </Stack>
+          <Stack
+            rowGap={5}
+            style={{
+              padding: "10px",
+              // height: "100vh",
+              overflowY: "scroll",
+              justifyContent: "center",
+              alignContent: "center",
+              fontFamily: "Prompt",
+            }}
+          >
+            <form onSubmit={onSubmit}>
+              <Container>
+                <Stack>
+                  <Container
+                    style={{
+                      marginTop: "20px",
+                      width: "100%",
+                      height: "160px",
+                      color: "#000000",
+                      padding: "20px",
+                      backgroundColor: "#fde68a",
+                      borderRadius: "20px",
+                      border: "none",
+                      boxShadow: "10px 10px 20px -9px rgba(0,0,0,0.29)",
+                    }}
+                  >
+                    <Stack rowGap={5}>
+                      <Typography variant="h6" component="h2">
+                        Name Your Card
+                      </Typography>
+                      <TextareaAutosize
+                        name="cardName"
+                        onChange={(e: any) => handleChange(e)}
+                        value={cardState.cardName}
+                        placeholder="Card Name"
+                        style={{
+                          width: "100%",
+                          padding: "10px",
+                          color: "#000000",
+                          height: "50px",
+                          backgroundColor: "#ffffff",
+                          borderRadius: "50px",
+                          border: "none",
+                          fontFamily: "Prompt",
+                          verticalAlign: "center",
+                        }}
+                      />
+                    </Stack>
+                  </Container>
+                  <Container
+                    style={{
+                      marginTop: "20px",
+                      width: "100%",
+                      height: "100%",
+                      color: "#000000",
+                      fontFamily: "Prompt",
+                      fontSize: "1rem",
+                      backgroundColor: "#fde68a",
+                      borderRadius: "20px",
+                      padding: "20px",
+                      boxShadow: "10px 10px 20px -9px rgba(0,0,0,0.29)",
+                    }}
+                  >
+                    <Stack>
+                      <Typography variant="h6" component="h2">
+                        Picture
+                      </Typography>
+                      <label>
+                        <div>
+                          <div
+                            style={{
+                              borderRadius: "20px",
+                              padding: "4%",
+                              backgroundColor: "white",
+                              maxHeight: "50px",
+                            }}
+                          >
+                            <Stack direction="row" spacing={2}>
+                              <div
+                                style={{
+                                  borderRadius: "10px",
+                                  minWidth: "40%",
+                                  maxHeight: "25px",
+                                  padding: "1%",
+                                  paddingLeft: "10px",
+                                  backgroundColor: "orange",
+                                  width: "40%",
+                                  fontFamily: "Prompt",
+                                  fontSize: "80%",
+                                  color: "white",
+                                }}
+                              >
+                                Select picture
+                              </div>
+                              {image ? (
+                                  <CheckCircleOutlineIcon
+                                    style={{
+                                      color: "green",
+                                      marginLeft: "50%",
+                                    }}
+                                  />
+                              ) : (
+                                <RadioButtonUncheckedIcon style={{
+									color: "green",
+									marginLeft: "50%",
+								  }}/>
+                              )}
+                            </Stack>
+                          </div>
+                          <span>
+                            <input
+                              type="file"
+                              ref={cardimageRef}
+                              onInput={onImageChange}
+                              style={{
+                                visibility: "hidden",
+                              }}
+                            />
+                          </span>
+                        </div>
+                      </label>
+                    </Stack>
+                  </Container>
+                  <Container
+                    style={{
+                      marginTop: "20px",
+                      width: "100%",
+                      height: "200px",
+                      color: "#000000",
 
                       backgroundColor: "#fde68a",
                       borderRadius: "20px",
