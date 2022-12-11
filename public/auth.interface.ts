@@ -1,4 +1,4 @@
-import { Response } from "./servies.interface"
+import { Response } from "../src/interfaces/servies.interface"
 interface Token {
     token?: string | null;
 }

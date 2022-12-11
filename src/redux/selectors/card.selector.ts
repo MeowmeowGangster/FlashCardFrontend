@@ -17,3 +17,8 @@ export const isLoading = createSelector(cardsSelector, (card) => {
 export const cardById = createSelector(cardsSelector, (card) => {
 	return card.cardById;
 });
+
+
+export const randomCards = createSelector(cardsSelector, (card) => {
+	return card.randomCards;
+});

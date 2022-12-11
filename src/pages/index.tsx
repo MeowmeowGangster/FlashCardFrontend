@@ -73,7 +73,7 @@ const Home: NextPage = () => {
 			<PopModal isOpen={open} setIsOpen={setOpen}>
 				<form onSubmit={CreateNewDeck}>
 					<Stack rowGap={4}>
-						<Typography id="modal-modal-title" variant="h6" component="h2">
+						<Typography id="modal-modal-title" variant="h6" component="h2" style={{color:"white"}}>
 							Your Deck Name
 						</Typography>
 

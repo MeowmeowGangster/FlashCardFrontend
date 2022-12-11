@@ -3293,6 +3293,11 @@ rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
+react-card-flip@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-card-flip/-/react-card-flip-1.2.0.tgz#b81b76e2ba18360a66df400b4f776d3ebbbece55"
+  integrity sha512-5/tbaSBoTTdxV2glail7fr7W7CqNG/4BOm17pNmI1b6TwtRRUrElPdAO4h235MGU2dDwqyWBzO+H8y2Ax6BTpA==
+
 react-dom@18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-18.2.0.tgz"
@@ -3308,7 +3313,7 @@ react-env@^0.0.0:
 
 react-hot-toast@^2.4.0:
   version "2.4.0"
-  resolved "https://registry.npmjs.org/react-hot-toast/-/react-hot-toast-2.4.0.tgz"
+  resolved "https://registry.yarnpkg.com/react-hot-toast/-/react-hot-toast-2.4.0.tgz#b91e7a4c1b6e3068fc599d3d83b4fb48668ae51d"
   integrity sha512-qnnVbXropKuwUpriVVosgo8QrB+IaPJCpL8oBI6Ov84uvHZ5QQcTp2qg6ku2wNfgJl6rlQXJIQU5q+5lmPOutA==
   dependencies:
     goober "^2.1.10"

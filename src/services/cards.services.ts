@@ -1,10 +1,9 @@
 import { CreateCard, updateCard } from "@interfaces/card.interface";
-import { filesUpload } from "@interfaces/file.interface";
 import { getWithExpiry } from "@utils/localstorage";
 
 import { AxiosResponse, default as axios } from "axios";
 
-const getCardByID = async (cardID: string): Promise<AxiosResponse>  => {
+const getCardByID = async (cardID: string): Promise<AxiosResponse> => {
 	let headers = {
 		Authorization: `Bearer ${getWithExpiry("token")}`,
 	};
@@ -38,7 +37,7 @@ const createCard = async (cardData: CreateCard) => {
 	return response;
 };
 
-const updateCard = async (cardData: updateCard): Promise<AxiosResponse>  => {
+const updateCard = async (cardData: updateCard): Promise<AxiosResponse> => {
 	const file = cardData.file;
 	const fromData = new FormData();
 	let headers = {
@@ -48,25 +47,43 @@ const updateCard = async (cardData: updateCard): Promise<AxiosResponse>  => {
 	if (file) {
 		fromData.append("file", file);
 	}
-	console.log(cardData.deckID);
 
 	fromData.append("cardName", cardData.cardName);
 	fromData.append("cardMemo", cardData.cardMemo);
 	fromData.append("deckID", cardData.deckID);
+	if (cardData.cardPic) {
+		fromData.append("cardPic", cardData.cardPic);
+	}
 
-	const response = await axios.put(`/cards`, cardData, {
+	const response = await axios.patch(`/cards/${cardData.cardID}`, cardData, {
 		method: "PATCH",
 		headers: headers,
 	});
 	return response;
 };
-const deleteCard = async (deckID: string) => {
-	const response = await axios.delete<AxiosResponse>(`/decks/${deckID}`, {
-		method: "DELETE",
-		headers: {
-			Authorization: `Bearer ${getWithExpiry("token")}`,
+const deleteCard = async (cardID: string, deckID: string) => {
+	const response = await axios.delete<AxiosResponse>(
+		`/cards/${cardID}/${deckID}`,
+		{
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${getWithExpiry("token")}`,
+			},
 		},
-	});
+	);
+	return response;
+};
+
+const randomCard = async (deckID: string, limit: number) => {
+	const response = await axios.get(
+		`/cards/random/${deckID}?limit=${limit}`,
+		{
+			method: "GET",
+			headers: {
+				Authorization: `Bearer ${getWithExpiry("token")}`,
+			},
+		},
+	);
 	return response;
 };
 
@@ -75,5 +92,6 @@ const CardService = {
 	getCardByID,
 	updateCard,
 	deleteCard,
+	randomCard,
 };
 export default CardService;

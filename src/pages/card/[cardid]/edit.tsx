@@ -11,16 +11,23 @@ import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useRef, useState } from "react";
 import { cardById } from "@redux/selectors/card.selector";
-import { getCardByID, UpdateCard } from "@redux/actions/card";
+import { getCardByID, UpdateCard, DeleteCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { updateCard } from "@interfaces/card.interface";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 
 const EditCardPage: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<any>();
 	const { cardid } = router.query;
-	const [cardStatus, setCardStatus] = useState("idle");
+	const [cardStatus] = useState("idle");
 	const [card, setCard] = useState<any>(null);
+	const [cardName, setCardName] = useState("");
+	const [memo, setMemo] = useState("");
+	const [isDataModify, setIsDataisDataModify] = useState(false);
 
 	useEffect(() => {
 		if (cardStatus === "idle") {
@@ -45,23 +52,52 @@ const EditCardPage: NextPage = () => {
 		}
 	};
 
-	const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		event.preventDefault();
-		setCard({
-			...cardState,
-			[event.target.name]: event.target.value,
-			deckID: cardid as string,
-			file: imageFile,
-		});
-	};
-
 	const onSubmit = async (event: React.FormEvent) => {
 		event.preventDefault();
+
+		if (imageFile) {
+			const data: updateCard = {
+				cardID: cardState?.cardID as string,
+				cardName: card.cardName,
+				deckID: cardState?.deckID as string,
+				cardMemo: card.cardMemo,
+				file: imageFile,
+				cardPic: undefined,
+			};
+			await dispatch(UpdateCard(data));
+		} else {
+			const data: updateCard = {
+				cardID: cardState?.cardID as string,
+				cardName: card.cardName,
+				deckID: cardState?.deckID as string,
+				cardMemo: card.cardMemo,
+				cardPic: cardState?.cardPic as string,
+				file: undefined,
+			};
+			await dispatch(UpdateCard(data));
+		}
 		setIsUploading(true);
-		// await dispatch(CreateCard(cardState));
-		// router.push(`/deck/${deckid}`);
+
+		router.push(`/deck/${cardState?.deckID}`);
 		setIsUploading(false);
 	};
+
+	function deleteFuckingCard(cardID: string, deckID: string) {
+		const deleteCardPayload = {
+			cardID: cardID,
+			deckID: deckID,
+		};
+		dispatch(DeleteCard(deleteCardPayload));
+		router.push(`/deck/${deckID}`);
+	}
+
+	function handleChange(e: any): void {
+		setCard({
+			...card,
+			[e.target.name]: e.target.value,
+		});
+		setIsDataisDataModify(true);
+	}
 
 	return (
 		<div className="bg">
@@ -69,22 +105,41 @@ const EditCardPage: NextPage = () => {
 				<Loading animationData={Success} />
 			) : (
 				<Container>
-					<Stack
-						direction="row"
+					<Grid
+						justifyContent="space-between"
 						style={{
-							color: "white",
-							fontFamily: "Prompt",
-							justifyContent: "center",
-							marginBottom: "-20px",
+							display: "flex",
+							flexDirection: "row",
 						}}
 					>
-						<h1>EDIT CARD</h1>
-					</Stack>
+						<ArrowBackIosIcon
+							style={{
+								marginTop: "10%",
+								marginLeft: "3%",
+								color: "white",
+							}}
+							onClick={() => {
+								router.back();
+							}}
+						/>
+
+						<Stack
+							style={{
+								color: "white",
+								justifyContent: "center",
+								marginBottom: "-40px",
+								marginLeft: "-5%",
+								fontFamily: "Prompt",
+							}}
+						>
+							<h1>EDIT CARD</h1>
+						</Stack>
+						<div></div>
+					</Grid>
 					<Stack
 						rowGap={5}
 						style={{
 							padding: "10px",
-							// height: "100vh",
 							overflowY: "scroll",
 							justifyContent: "center",
 							alignContent: "center",
@@ -114,7 +169,7 @@ const EditCardPage: NextPage = () => {
 											<TextareaAutosize
 												name="cardName"
 												onChange={(e: any) => handleChange(e)}
-												value={card?.cardName}
+												defaultValue={card?.cardName}
 												placeholder="Card Name"
 												style={{
 													width: "100%",
@@ -162,12 +217,12 @@ const EditCardPage: NextPage = () => {
 															<div
 																style={{
 																	borderRadius: "10px",
-																	minWidth: "40%",
+																	minWidth: "45%",
 																	maxHeight: "25px",
 																	padding: "1%",
 																	paddingLeft: "10px",
 																	backgroundColor: "orange",
-																	width: "40%",
+																	width: "45%",
 																	fontFamily: "Prompt",
 																	fontSize: "80%",
 																	color: "white",
@@ -175,15 +230,21 @@ const EditCardPage: NextPage = () => {
 															>
 																Select picture
 															</div>
-															<div
-																style={{
-																	fontFamily: "Prompt",
-																	fontSize: "50%",
-																	color: "black",
-																}}
-															>
-																{imageFile?.name}
-															</div>
+															{imageFile ? (
+																<CheckCircleOutlineIcon
+																	style={{
+																		color: "green",
+																		marginLeft: "45%",
+																	}}
+																/>
+															) : (
+																<RadioButtonUncheckedIcon
+																	style={{
+																		color: "green",
+																		marginLeft: "45%",
+																	}}
+																/>
+															)}
 														</Stack>
 													</div>
 
@@ -254,7 +315,7 @@ const EditCardPage: NextPage = () => {
 									<Grid item xs={6}>
 										<Button
 											onClick={() => {
-												router.back();
+												deleteFuckingCard(card.cardID, card.deckID);
 											}}
 											style={{
 												backgroundColor: "transparent",
@@ -265,7 +326,7 @@ const EditCardPage: NextPage = () => {
 												width: "120px",
 											}}
 										>
-											Cancel
+											DELETE
 										</Button>
 									</Grid>
 									<Grid item xs={6}>

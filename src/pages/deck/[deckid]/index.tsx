@@ -21,6 +21,8 @@ import { getDeckById } from "@redux/actions/deck";
 import { deckById } from "@redux/selectors/decks.selector";
 import Link from "next/link";
 import Image from "next/image";
+import { card } from "@redux/slice";
+import { toast, Toaster } from "react-hot-toast";
 
 const Deck: NextPage = () => {
 	const router = useRouter();
@@ -30,7 +32,8 @@ const Deck: NextPage = () => {
 	const [deckStatus, setDeckStatus] = useState("idle");
 
 	useEffect(() => {
-		if (deckStatus === "idle") {
+		setDeckStatus("loading");
+		if (deckStatus === "loading") {
 			dispatch(getDeckById(deckid as string));
 		}
 	}, [deckStatus, deckid, dispatch]);
@@ -42,6 +45,9 @@ const Deck: NextPage = () => {
 	}, [deckState]);
 	return (
 		<div className="bg">
+			<div>
+				<Toaster />
+			</div>
 			<Container>
 				<Stack
 					rowGap={5}
@@ -59,14 +65,15 @@ const Deck: NextPage = () => {
 							backgroundColor: "#3c4757",
 							padding: "20px",
 						}}
-					><Stack direction="row" spacing={3} justifyContent="space-between">
-						<Typography variant="h6" component="h2">
-							{deck?.deckName}
-						</Typography>
-						<Typography variant="h6" component="h2">
-							{deck?.cards.length}
-						</Typography>
-					</Stack>
+					>
+						<Stack direction="row" spacing={3} justifyContent="space-between">
+							<Typography variant="h6" component="h2">
+								{deck?.deckName}
+							</Typography>
+							<Typography variant="h6" component="h2">
+								{deck?.cards.length}
+							</Typography>
+						</Stack>
 					</AppBar>
 					<Container>
 						<Stack>
@@ -96,64 +103,67 @@ const Deck: NextPage = () => {
 												: {})}
 										>
 											<Grid item xs={2} sm={4} md={4}>
-												<Card
+												<CardActionArea
+													onClick={() => {
+														router.push(`/card/${card.cardID}/edit`);
+													}}
 													style={{
-														backgroundColor: "white",
-														borderRadius: "10px",
-														color: "black",
-														fontSize: "12px",
-														width: "130px",
-														height: "180px",
-														textAlign: "center",
-														verticalAlign: "middle",
-														textDecoration: "none",
-														boxShadow: "#000",
 														position: "relative",
-														padding: "10px",
+														width: "100%",
+														height: "100%",
 													}}
 												>
-
-													{" "}
-													<CardMedia>
-														<Image
-															alt="card-cover"
-															src={card?.cardPic}
-															width={200}
-															height={200}
-															layout="responsive"
-															objectFit="cover"
-														/>
-													</CardMedia>
-													<Box
+													<Card
 														style={{
-															position: "absolute",
-															bottom: "0",
-															zIndex: 2,
+															backgroundColor: "white",
+															borderRadius: "10px",
 															color: "black",
-															// padding: "0px",
-															// WebkitTextStroke: "1px white",
+															fontSize: "12px",
+															width: "130px",
+															height: "180px",
+															textAlign: "center",
+															verticalAlign: "middle",
+															textDecoration: "none",
+															boxShadow: "#000",
+															position: "relative",
+															padding: "10px",
 														}}
 													>
-														<h4
+														<CardMedia>
+															<Image
+																alt="card-cover"
+																src={
+																	card?.cardPic 
+																		? card?.cardPic
+																		: "/images/no-pictures.png"
+																}
+																width={200}
+																height={200}
+																layout="responsive"
+																objectFit="cover"
+															/>
+														</CardMedia>
+														<Box
 															style={{
-																marginBottom: "-3px",
+																position: "absolute",
+																bottom: "0",
+																zIndex: 2,
+																color: "black",
+																// padding: "0px",
+																// WebkitTextStroke: "1px white",
 															}}
 														>
-															{card?.cardName}
-														</h4>
-														<p>{card?.cardMemo}</p>
-													</Box>
-													<CardActionArea
-														onClick={() => {
-															router.push(`/card/${card.cardID}`);
-														}}
-														style={{
-															position: "relative",
-															width: "100%",
-															height: "100%",
-														}}
-													></CardActionArea>
-												</Card>
+															<h4
+																style={{
+																	marginBottom: "-3px",
+																}}
+															>
+																{card?.cardName}
+															</h4>
+															<p>{card?.cardMemo}</p>
+														</Box>
+													</Card>
+												</CardActionArea>
 											</Grid>
 										</Grow>
 									))}
@@ -221,6 +231,13 @@ const Deck: NextPage = () => {
 							</Grid>
 							<Grid item xs={6}>
 								<Button
+									onClick={() => {
+										{
+											deck?.cards.length < 3
+												? toast.error("Please add more cards")
+												: router.push(`/deck/${deckid}/game`);
+										}
+									}}
 									style={{
 										backgroundColor: "#FDE68A",
 										color: "black",
