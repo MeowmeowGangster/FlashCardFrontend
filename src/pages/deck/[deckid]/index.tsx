@@ -45,7 +45,9 @@ const Deck: NextPage = () => {
 	}, [deckState]);
 	return (
 		<div className="bg">
-			<div><Toaster/></div>
+			<div>
+				<Toaster />
+			</div>
 			<Container>
 				<Stack
 					rowGap={5}
@@ -127,12 +129,14 @@ const Deck: NextPage = () => {
 															padding: "10px",
 														}}
 													>
-														{" "}
 														<CardMedia>
-															
 															<Image
 																alt="card-cover"
-																src={card?.cardPic || "/images/no-pictures.png"} 
+																src={
+																	card?.cardPic 
+																		? card?.cardPic
+																		: "/images/no-pictures.png"
+																}
 																width={200}
 																height={200}
 																layout="responsive"
@@ -224,7 +228,6 @@ const Deck: NextPage = () => {
 								>
 									Cancel
 								</Button>
-						
 							</Grid>
 							<Grid item xs={6}>
 								<Button
@@ -234,7 +237,6 @@ const Deck: NextPage = () => {
 												? toast.error("Please add more cards")
 												: router.push(`/deck/${deckid}/game`);
 										}
-										
 									}}
 									style={{
 										backgroundColor: "#FDE68A",

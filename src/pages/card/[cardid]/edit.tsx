@@ -299,7 +299,7 @@ const EditCardPage: NextPage = () => {
 									<Grid item xs={6}>
 										<Button
 											onClick={() => {
-												CardService.deleteCard(card.cardID);
+												CardService.deleteCard(card.cardID, card.deckID);
 												router.push("/deck/" + card?.deckID);
 											}}
 											style={{

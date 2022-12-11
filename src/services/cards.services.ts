@@ -61,13 +61,16 @@ const updateCard = async (cardData: updateCard): Promise<AxiosResponse> => {
 	});
 	return response;
 };
-const deleteCard = async (cardID: string) => {
-	const response = await axios.delete<AxiosResponse>(`/cards/${cardID}`, {
-		method: "DELETE",
-		headers: {
-			Authorization: `Bearer ${getWithExpiry("token")}`,
+const deleteCard = async (cardID: string, deckID: string) => {
+	const response = await axios.delete<AxiosResponse>(
+		`/cards/${cardID}/${deckID}`,
+		{
+			method: "DELETE",
+			headers: {
+				Authorization: `Bearer ${getWithExpiry("token")}`,
+			},
 		},
-	});
+	);
 	return response;
 };
 
