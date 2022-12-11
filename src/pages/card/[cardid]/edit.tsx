@@ -18,6 +18,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import { updateCard } from "@interfaces/card.interface";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
+import CardService from "@services/cards.services";
 
 const EditCardPage: NextPage = () => {
   const router = useRouter();
