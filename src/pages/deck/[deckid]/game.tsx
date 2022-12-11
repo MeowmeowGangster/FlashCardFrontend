@@ -1,11 +1,12 @@
 import {
-	Container,
-	Stack,
-	AppBar,
-	Typography,
-	Grid,
-	Button,
-	Card,
+  Container,
+  Stack,
+  AppBar,
+  Typography,
+  Grid,
+  Button,
+  Card,
+  CardContent,
 } from "@mui/material";
 import type { NextPage } from "next";
 import router from "next/router";

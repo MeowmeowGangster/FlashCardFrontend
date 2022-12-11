@@ -73,7 +73,7 @@ const Home: NextPage = () => {
 			<PopModal isOpen={open} setIsOpen={setOpen}>
 				<form onSubmit={CreateNewDeck}>
 					<Stack rowGap={4}>
-						<Typography id="modal-modal-title" variant="h6" component="h2">
+						<Typography id="modal-modal-title" variant="h6" component="h2" style={{color:"white"}}>
 							Your Deck Name
 						</Typography>
 
@@ -215,7 +215,7 @@ const Home: NextPage = () => {
 								<Button
 									style={{
 										backgroundColor: "#fb923c",
-										borderRadius: "10px",
+										borderRadius: "15px",
 										color: "#ffffff",
 										padding: "32px",
 										fontSize: "100px",

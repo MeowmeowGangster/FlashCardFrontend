@@ -9,30 +9,33 @@ import {
 import type { NextPage } from "next";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { cardById } from "@redux/selectors/card.selector";
 import { getCardByID, UpdateCard } from "@redux/actions/card";
 import Loading from "@components/loading";
 import Success from "@components/lottie/success.json";
-import { CardData, updateCard } from "@interfaces/card.interface";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import { updateCard } from "@interfaces/card.interface";
 
 const EditCardPage: NextPage = () => {
 	const router = useRouter();
 	const dispatch = useDispatch<any>();
 	const { cardid } = router.query;
 	const [cardStatus, setCardStatus] = useState("idle");
+	const [card, setCard] = useState<any>(null);
 
-	const [cardName, setCardName] = useState<string>("");
-	const [memo, setMemo] = useState<string>("");
-
-	
 	useEffect(() => {
-		setCardStatus("loading");
-		if (cardStatus === "loading") {
+		if (cardStatus === "idle") {
 			dispatch(getCardByID(cardid as string));
 		}
 	}, [cardStatus, cardid, dispatch]);
+
 	const cardState = useSelector(cardById);
+
+	useEffect(() => {
+		setCard(cardState);
+	}, [cardState]);
+
 	const [isUploading, setIsUploading] = useState(false);
 	const [imageFile, setImageFile] = useState<File>();
 
@@ -74,6 +77,10 @@ const EditCardPage: NextPage = () => {
 		setIsUploading(false);
 	};
 
+	function handleChange(e: any): void {
+		throw new Error("Function not implemented.");
+	}
+
 	return (
 		<div className="bg">
 			{isUploading ? (
@@ -83,17 +90,6 @@ const EditCardPage: NextPage = () => {
 					<Stack
 						direction="row"
 						style={{
-							color: "white",
-							fontFamily: "Prompt",
-							justifyContent: "center",
-							marginBottom: "-20px",
-						}}
-					>
-						<h1>EDIT CARD</h1>
-					</Stack>
-					<Stack
-						rowGap={5}
-						style={{
 							padding: "10px",
 							// height: "100vh",
 							overflowY: "scroll",
@@ -102,6 +98,8 @@ const EditCardPage: NextPage = () => {
 							fontFamily: "Prompt",
 						}}
 					>
+						<h1>EDIT CARD</h1>
+
 						<form onSubmit={onSubmit}>
 							<Container>
 								<Stack>
@@ -124,12 +122,9 @@ const EditCardPage: NextPage = () => {
 											</Typography>
 											<TextareaAutosize
 												name="cardName"
-												onChange={(e) => {
-													setCardName(e.target.value);
-												}}
-												value={cardName ? cardName : cardState?.cardName}
+												onChange={(e: any) => handleChange(e)}
+												value={card?.cardName}
 												placeholder="Card Name"
-												defaultValue={cardState?.cardName}
 												style={{
 													width: "100%",
 													padding: "10px",
@@ -178,7 +173,7 @@ const EditCardPage: NextPage = () => {
 																	borderRadius: "10px",
 																	minWidth: "40%",
 																	maxHeight: "25px",
-																	padding: "2px",
+																	padding: "1%",
 																	paddingLeft: "10px",
 																	backgroundColor: "orange",
 																	width: "40%",
@@ -192,11 +187,8 @@ const EditCardPage: NextPage = () => {
 															<div
 																style={{
 																	fontFamily: "Prompt",
-																	fontSize: "100%",
+																	fontSize: "50%",
 																	color: "black",
-																	textOverflow: "ellipsis",
-																	whiteSpace: "nowrap",
-																	overflow: "hidden",
 																}}
 															>
 																{imageFile?.name}
@@ -237,8 +229,7 @@ const EditCardPage: NextPage = () => {
 											</Typography>
 											<TextareaAutosize
 												name="cardMemo"
-												defaultValue={cardState?.cardMemo}
-												value={memo}
+												value={card?.cardMemo}
 												placeholder="memo"
 												style={{
 													width: "100%",
@@ -249,7 +240,7 @@ const EditCardPage: NextPage = () => {
 													backgroundColor: "#ffffff",
 													borderRadius: "20px",
 												}}
-												onChange={(e: any) => setMemo(e.target.value)}
+												onChange={(e: any) => handleChange(e)}
 											/>
 										</Stack>
 									</Container>
@@ -283,7 +274,7 @@ const EditCardPage: NextPage = () => {
 												width: "120px",
 											}}
 										>
-											Delete
+											Cancel
 										</Button>
 									</Grid>
 									<Grid item xs={6}>
